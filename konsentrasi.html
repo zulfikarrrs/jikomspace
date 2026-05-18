@@ -1,0 +1,1534 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JIKOM Konsentrasi — JIKOM Space</title>
+  <meta name="description" content="JIKOM Space · Ruang Digital Mahasiswa JIKOM Undana" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jikomspace.vercel.app/" />
+  <meta property="og:title" content="JIKOM Space" />
+  <meta property="og:description"
+    content="Ruang digital mahasiswa JIKOM Undana untuk layanan akademik, pamer karya, dan informasi prodi terpadu." />
+  <meta property="og:image" content="https://jikomspace.vercel.app/tampilan%20bagikan.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://jikomspace.vercel.app/" />
+  <meta property="twitter:title" content="JIKOM Space" />
+  <meta property="twitter:description"
+    content="Ruang digital mahasiswa JIKOM Undana untuk layanan akademik, pamer karya, dan informasi prodi terpadu." />
+  <meta property="twitter:image" content="https://jikomspace.vercel.app/tampilan%20bagikan.png" />
+  <link rel="icon" href="kumpulan logo/logo jikom.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#ff7a00" },
+          fontFamily: { sans: ["Inter", "ui-sans-serif"] },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #ff7a00;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #ff7a00 #f8f8f8;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ff7a00, #ff9a40);
+      border-radius: 10px;
+      border: 1.5px solid #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #e56a00, #ff7a00);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-link.active-page {
+      color: var(--primary);
+    }
+
+    .nav-link.active-page::after {
+      transform: scaleX(1);
+    }
+
+    .clickable {
+      transition:
+        transform 0.12s,
+        filter 0.2s;
+    }
+
+    .clickable:active {
+      transform: translateY(1px) scale(0.985);
+    }
+
+    /* Slider */
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .slide-inner {
+      background: #111;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-inner svg,
+    .slide-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Slide nav buttons */
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ff7a00;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition:
+        background 0.2s,
+        transform 0.15s;
+      box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35);
+    }
+
+    .slide-btn:hover {
+      background: #ea6c00;
+      transform: translateY(-50%) scale(1.07);
+    }
+
+    .slide-btn.prev {
+      left: -18px;
+    }
+
+    .slide-btn.next {
+      right: -18px;
+    }
+
+    /* Dots */
+    .slider-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .dot {
+      width: 28px;
+      height: 6px;
+      border-radius: 3px;
+      background: #e2e8f0;
+      border: none;
+      cursor: pointer;
+      transition:
+        background 0.2s,
+        width 0.2s;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: #ff7a00;
+      width: 36px;
+    }
+
+    /* Benefit / career bullets */
+    .bullet-orange::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff7a00;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .bullet-green::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Konsen selector cards */
+    .ks-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition:
+        border-color 0.2s,
+        background 0.2s;
+      background: #fff;
+    }
+
+    .ks-card:hover {
+      border-color: #ff7a00;
+    }
+
+    .ks-card.active {
+      border-color: #ff7a00;
+      background: #fff7ed;
+    }
+
+    .ks-card.active .ks-dot {
+      background: #ff7a00;
+    }
+
+    .ks-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .ks-title-active {
+      color: #ff7a00;
+    }
+
+    .ks-title-inactive {
+      color: #1e293b;
+    }
+
+    /* Section fade-in */
+    .fade-in {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased text-slate-800 bg-white">
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="kumpulan logo/ikon jikom.png" alt="ikon jikom" class="w-19 h-12 rounded-lg object-contain" />
+      </a>
+      <div class="hidden lg:flex items-center gap-7 text-[12px] font-medium text-slate-700">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="berkas.html" class="nav-link">Berkas</a>
+        <a href="karya.html" class="nav-link">Karya</a>
+        <a href="publish.html" class="nav-link">Publish</a>
+        <a href="info.html" class="nav-link">Info</a>
+        <a href="konsentrasi.html" class="nav-link active-page">Konsentrasi</a>
+        <a href="index.html#kontak" class="nav-link">Kontak</a>
+        <div class="ml-3 flex items-center gap-3">
+          <a href="https://www.instagram.com/jikomundana/" target="_blank" rel="noopener noreferrer"
+            title="Instagram JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 0 0-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.756 6.162 6.162 6.162 3.405 0 6.162-2.757 6.162-6.162 0-3.404-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@jikom.undana" target="_blank" rel="noopener noreferrer"
+            title="TikTok JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.41a8.16 8.16 0 0 0 4.77 1.52V7.49a4.85 4.85 0 0 1-1.01-.8z" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@jikomundana" target="_blank" rel="noopener noreferrer"
+            title="YouTube JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-slate-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="lg:hidden bg-white border-t border-slate-100 px-4 pb-4" style="display: none">
+      <div class="flex flex-col gap-1 pt-3">
+        <a href="index.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Beranda</a>
+        <a href="berkas.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Berkas</a>
+        <a href="karya.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Karya</a>
+        <a href="publish.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Publish</a>
+        <a href="info.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Info</a>
+        <a href="konsentrasi.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium bg-orange-50 text-primary">Konsentrasi</a>
+        <a href="index.html#kontak"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Kontak</a>
+        <div class="mt-2 flex items-center justify-center gap-4">
+          <a href="https://www.instagram.com/jikomundana/" target="_blank" rel="noopener noreferrer"
+            title="Instagram JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 0 0-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.756 6.162 6.162 6.162 3.405 0 6.162-2.757 6.162-6.162 0-3.404-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@jikom.undana" target="_blank" rel="noopener noreferrer"
+            title="TikTok JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.41a8.16 8.16 0 0 0 4.77 1.52V7.49a4.85 4.85 0 0 1-1.01-.8z" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@jikomundana" target="_blank" rel="noopener noreferrer"
+            title="YouTube JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+    <!-- HERO HEADER -->
+    <section class="pt-20 pb-4 text-center bg-white">
+      <p style="
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #ff7a00;
+            margin-bottom: 12px;
+          ">
+        JIKOM KONSENTRASI
+      </p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+        Temukan Jalanmu di JIKOM
+      </h1>
+      <p class="text-slate-500 text-base max-w-xl mx-auto">
+        Dari empat jalur ini, hanya satu yang benar-benar cocok untukmu.
+      </p>
+      <p class="text-slate-500 text-base max-w-xl mx-auto">
+        Sudah tahu jawabannya?
+      </p>
+    </section>
+
+    <!-- MAIN DETAIL SECTION -->
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <!-- Two-column layout: Slider LEFT | Info RIGHT -->
+        <div id="detailArea" class="grid lg:grid-cols-2 gap-14 items-start fade-in">
+          <!-- LEFT: Slider -->
+          <div class="relative px-6">
+            <div class="slider-wrapper">
+              <div class="slider-track" id="sliderTrack"></div>
+            </div>
+            <button class="slide-btn prev" id="prevBtn">
+              <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button class="slide-btn next" id="nextBtn">
+              <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <div class="slider-dots" id="sliderDots"></div>
+          </div>
+
+          <!-- RIGHT: Info -->
+          <div id="infoPanel"></div>
+        </div>
+
+        <!-- BOTTOM: 4 Selector Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16" id="selectorCards"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="kontak" class="bg-[#0c1c32] text-white pt-14 pb-6">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="kumpulan logo/logo jikom.png" alt="Logo jikom" class="w-9 h-9 rounded-lg object-contain" />
+          <div>
+            <p class="font-bold">JIKOM Space</p>
+            <p class="text-xs text-slate-400">Universitas Nusa Cendana</p>
+          </div>
+        </div>
+        <p class="text-sm text-slate-300">
+          Ruang digital mahasiswa JIKOM Undana untuk layanan akademik dan
+          Kreativitasmu.
+        </p>
+        <p class="text-sm text-slate-300 mt-4">
+          Jl. Adisucipto Penfui, Kupang, NTT 85001
+        </p>
+        <p class="text-sm text-slate-300">(0380) 881580</p>
+        <p class="text-sm text-slate-300">jikom@undana.ac.id</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Fitur</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li>
+            <a href="berkas.html" class="hover:text-primary transition-colors">JIKOM Berkas</a>
+          </li>
+          <li>
+            <a href="karya.html" class="hover:text-primary transition-colors">JIKOM Karya</a>
+          </li>
+          <li>
+            <a href="publish.html" class="hover:text-primary transition-colors">JIKOM Publish</a>
+          </li>
+          <li>
+            <a href="info.html" class="hover:text-primary transition-colors">JIKOM Info</a>
+          </li>
+          <li>
+            <a href="konsentrasi.html" class="hover:text-primary transition-colors">JIKOM Konsentrasi</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Program Studi</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li>Profil Prodi</li>
+          <li>Visi dan Misi</li>
+          <li>Kurikulum</li>
+          <li>Dosen</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Universitas</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li>
+            <a href="https://undana.ac.id" target="_blank" class="hover:text-primary transition-colors">Website
+              Undana</a>
+          </li>
+          <li>
+            <a href="https://fisip.undana.ac.id" target="_blank" class="hover:text-primary transition-colors">FISIP
+              Undana</a>
+          </li>
+          <li>
+            <a href="https://siakad.undana.ac.id" target="_blank"
+              class="hover:text-primary transition-colors">SIAKAD</a>
+          </li>
+          <li>
+            <a href="https://spada.undana.ac.id/" target="_blank"
+              class="hover:text-primary transition-colors">E-Learning</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-10 border-t border-slate-700 pt-4 text-xs text-slate-400">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
+        <p>JIKOM Space | Prodi Ilmu Komunikasi Universitas Nusa Cendana</p>
+        <p>Kebijakan Privasi · Syarat dan Ketentuan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Aspirasi Button -->
+  <a href="https://forms.gle/xhhuCEbHjmVXP1zJ9" target="_blank" rel="noopener noreferrer" id="aspirasi-btn"
+    class="collapsed" title="Kirim Aspirasi">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+    <span id="aspirasi-label">Aspirasi</span>
+  </a>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/6285738319197" target="_blank" rel="noopener noreferrer" id="wa-btn" class="collapsed"
+    title="Hubungi Admin via WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    </svg>
+    <span id="wa-label">Admin</span>
+  </a>
+
+  <style>
+    #aspirasi-btn {
+      position: fixed;
+      bottom: 88px;
+      right: 28px;
+      z-index: 9999;
+      background-color: #F97316;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.45);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      width: 145px;
+      justify-content: center;
+    }
+
+    #aspirasi-btn:hover {
+      background-color: #EA6C0A;
+      box-shadow: 0 6px 28px rgba(249, 115, 22, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #aspirasi-btn:active {
+      transform: translateY(0px);
+    }
+
+    #aspirasi-label {
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    #aspirasi-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background-color: rgba(249, 115, 22, 0.35);
+      animation: pulse-ring 2.5s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
+    }
+
+    #aspirasi-btn.collapsed {
+      padding: 14px;
+      width: 52px;
+    }
+
+    #aspirasi-btn.collapsed #aspirasi-label {
+      width: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Floating WhatsApp Button */
+    #wa-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background-color: #25D366;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      width: 145px;
+      justify-content: center;
+    }
+
+    #wa-btn:hover {
+      background-color: #1ebe5d;
+      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #wa-btn:active {
+      transform: translateY(0px);
+    }
+
+    #wa-label {
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    #wa-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background-color: rgba(37, 211, 102, 0.35);
+      animation: pulse-ring-wa 2.5s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring-wa {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
+    }
+
+    #wa-btn.collapsed {
+      padding: 14px;
+      width: 52px;
+    }
+
+    #wa-btn.collapsed #wa-label {
+      width: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <script>
+    // Expand saat klik atau hover
+    const btnAspirasi = document.getElementById('aspirasi-btn');
+    const btnWA = document.getElementById('wa-btn');
+
+    const handleExpand = (btn) => {
+      if (btn.classList.contains('collapsed')) {
+        btn.classList.remove('collapsed');
+      }
+    };
+
+    const handleCollapse = (btn) => {
+      if (!btn.classList.contains('collapsed')) {
+        btn.classList.add('collapsed');
+      }
+    };
+
+    // Click behavior (terutama untuk mobile)
+    btnAspirasi.addEventListener('click', (e) => {
+      if (btnAspirasi.classList.contains('collapsed')) {
+        e.preventDefault();
+        handleExpand(btnAspirasi);
+      }
+    });
+
+    btnWA.addEventListener('click', (e) => {
+      if (btnWA.classList.contains('collapsed')) {
+        e.preventDefault();
+        handleExpand(btnWA);
+      }
+    });
+
+    // Desktop hover behavior
+    btnAspirasi.addEventListener('mouseenter', () => handleExpand(btnAspirasi));
+    btnAspirasi.addEventListener('mouseleave', () => {
+      setTimeout(() => handleCollapse(btnAspirasi), 1500);
+    });
+
+    btnWA.addEventListener('mouseenter', () => handleExpand(btnWA));
+    btnWA.addEventListener('mouseleave', () => {
+      setTimeout(() => handleCollapse(btnWA), 1500);
+    });
+  </script>
+
+  <script>
+    // Mobile menu
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      const m = document.getElementById("mobileMenu");
+      m.style.display = m.style.display === "none" ? "block" : "none";
+    });
+    document.querySelectorAll(".mobile-link").forEach((l) =>
+      l.addEventListener("click", () => {
+        document.getElementById("mobileMenu").style.display = "none";
+      }),
+    );
+
+    // ── SVG Illustrations ───────────────────────────────────────────────────────
+
+    // Jurnalistik slides
+    const svgJurnal1 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f5f5f0"/>
+      <!-- Newspaper background pages -->
+      <rect x="30" y="20" width="200" height="280" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+      <rect x="36" y="30" width="90" height="12" rx="2" fill="#e5e7eb"/>
+      <rect x="36" y="48" width="60" height="8" rx="2" fill="#f3f4f6"/>
+      <rect x="36" y="62" width="80" height="6" rx="2" fill="#f3f4f6"/>
+      <rect x="36" y="74" width="70" height="6" rx="2" fill="#f3f4f6"/>
+      <rect x="36" y="86" width="75" height="6" rx="2" fill="#f3f4f6"/>
+      <!-- photo placeholder in newspaper -->
+      <rect x="36" y="100" width="188" height="90" rx="3" fill="#e5e7eb"/>
+      <text x="78" y="152" font-size="13" fill="#9ca3af" font-family="Inter,sans-serif">Jouwallss</text>
+      <rect x="36" y="200" width="80" height="6" rx="2" fill="#f3f4f6"/>
+      <rect x="36" y="212" width="90" height="6" rx="2" fill="#f3f4f6"/>
+      <!-- small portrait boxes -->
+      <rect x="150" y="30" width="70" height="55" rx="3" fill="#e5e7eb"/>
+      <circle cx="185" cy="52" r="14" fill="#d1d5db"/>
+      <!-- Second page peeking -->
+      <rect x="290" y="40" width="160" height="240" rx="4" fill="#fff" stroke="#ddd" stroke-width="1"/>
+      <rect x="300" y="55" width="140" height="10" rx="2" fill="#e5e7eb"/>
+      <rect x="300" y="72" width="100" height="7" rx="2" fill="#f3f4f6"/>
+      <rect x="300" y="85" width="110" height="7" rx="2" fill="#f3f4f6"/>
+      <rect x="300" y="98" width="90" height="7" rx="2" fill="#f3f4f6"/>
+      <rect x="300" y="115" width="140" height="80" rx="3" fill="#e5e7eb"/>
+      <!-- Davs antiun box -->
+      <rect x="300" y="205" width="140" height="50" rx="3" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <text x="310" y="225" font-size="11" fill="#374151" font-family="Inter,sans-serif" font-weight="600">Davs antiun</text>
+      <text x="310" y="242" font-size="10" fill="#6b7280" font-family="Inter,sans-serif">Som peaurd</text>
+      <!-- Da rsing box -->
+      <rect x="36" y="240" width="188" height="48" rx="3" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+      <text x="46" y="260" font-size="11" fill="#374151" font-family="Inter,sans-serif" font-weight="600">Da rsing</text>
+      <text x="46" y="276" font-size="10" fill="#6b7280" font-family="Inter,sans-serif">Mart Eug</text>
+      <!-- Reporter woman illustration -->
+      <!-- Body suit -->
+      <ellipse cx="240" cy="270" rx="52" ry="70" fill="#374151"/>
+      <!-- White shirt -->
+      <ellipse cx="240" cy="260" rx="30" ry="50" fill="#f9fafb"/>
+      <!-- Blazer left -->
+      <path d="M190 210 Q200 240 210 310 L240 310 L240 190 Q210 190 190 210Z" fill="#374151"/>
+      <!-- Blazer right -->
+      <path d="M290 210 Q280 240 270 310 L240 310 L240 190 Q270 190 290 210Z" fill="#374151"/>
+      <!-- Neck -->
+      <rect x="228" y="170" width="24" height="30" rx="8" fill="#f5cba7"/>
+      <!-- Head -->
+      <ellipse cx="240" cy="148" rx="38" ry="44" fill="#f5cba7"/>
+      <!-- Hair -->
+      <path d="M202 138 Q204 100 240 96 Q276 100 278 138 Q270 108 240 106 Q210 108 202 138Z" fill="#4b3728"/>
+      <path d="M202 138 Q198 152 200 162 Q206 145 210 148Z" fill="#4b3728"/>
+      <path d="M278 138 Q282 152 280 162 Q274 145 270 148Z" fill="#4b3728"/>
+      <!-- Bob hair sides -->
+      <path d="M204 148 Q200 168 208 175 Q210 155 215 150Z" fill="#4b3728"/>
+      <path d="M276 148 Q280 168 272 175 Q270 155 265 150Z" fill="#4b3728"/>
+      <!-- Eyes -->
+      <ellipse cx="226" cy="148" rx="5" ry="6" fill="#fff"/>
+      <ellipse cx="226" cy="149" rx="3" ry="3.5" fill="#2d1b0e"/>
+      <ellipse cx="254" cy="148" rx="5" ry="6" fill="#fff"/>
+      <ellipse cx="254" cy="149" rx="3" ry="3.5" fill="#2d1b0e"/>
+      <!-- Eyebrows -->
+      <path d="M220 140 Q226 137 232 140" stroke="#4b3728" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M248 140 Q254 137 260 140" stroke="#4b3728" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- Nose -->
+      <path d="M238 155 Q236 162 238 165 Q240 167 242 165 Q244 162 242 155" stroke="#d4956a" stroke-width="1.2" fill="none"/>
+      <!-- Smile -->
+      <path d="M228 172 Q240 180 252 172" stroke="#c07850" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Mic -->
+      <rect x="248" y="195" width="14" height="32" rx="7" fill="#2d2d2d"/>
+      <ellipse cx="255" cy="195" rx="10" ry="12" fill="#1a1a1a"/>
+      <rect x="248" y="220" width="14" height="6" rx="2" fill="#555"/>
+      <!-- Mic handle going to hand -->
+      <rect x="252" y="228" width="6" height="50" rx="3" fill="#2d2d2d"/>
+      <!-- Right hand holding mic -->
+      <ellipse cx="255" cy="282" rx="13" ry="10" fill="#f5cba7"/>
+    </svg>`;
+
+    const svgJurnal2 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#0f172a"/>
+      <!-- Studio lights top -->
+      <ellipse cx="120" cy="10" rx="40" ry="8" fill="#1e293b"/>
+      <path d="M100 10 L80 60 L140 60 Z" fill="#1e293b"/>
+      <ellipse cx="360" cy="10" rx="40" ry="8" fill="#1e293b"/>
+      <path d="M340 10 L320 60 L380 60 Z" fill="#1e293b"/>
+      <!-- Desk/table -->
+      <rect x="60" y="240" width="360" height="16" rx="4" fill="#1e3a5f"/>
+      <!-- Monitor -->
+      <rect x="160" y="140" width="160" height="100" rx="6" fill="#0ea5e9" opacity="0.15"/>
+      <rect x="165" y="145" width="150" height="90" rx="4" fill="#0c2340"/>
+      <rect x="170" y="150" width="140" height="80" rx="3" fill="#0f172a"/>
+      <!-- Screen content lines -->
+      <rect x="178" y="160" width="80" height="6" rx="2" fill="#1e3a5f"/>
+      <rect x="178" y="172" width="60" height="5" rx="2" fill="#1e3a5f"/>
+      <rect x="178" y="183" width="70" height="5" rx="2" fill="#1e3a5f"/>
+      <!-- Camera on tripod -->
+      <rect x="340" y="160" width="30" height="50" rx="4" fill="#1e293b"/>
+      <rect x="345" y="155" width="20" height="12" rx="2" fill="#334155"/>
+      <rect x="348" y="148" width="14" height="8" rx="6" fill="#475569"/>
+      <rect x="350" y="210" width="2" height="50" fill="#334155"/>
+      <path d="M338 260 L362 260 L358 240 L342 240Z" fill="#334155"/>
+      <!-- Reporter at desk - simplified -->
+      <ellipse cx="240" cy="210" rx="32" ry="38" fill="#1e40af" opacity="0.8"/>
+      <ellipse cx="240" cy="175" rx="28" ry="32" fill="#fbbf88"/>
+      <path d="M214 162 Q218 138 240 136 Q262 138 266 162 Q258 146 240 144 Q222 146 214 162Z" fill="#7c3f1e"/>
+      <!-- Orange accent glow on screen -->
+      <rect x="165" y="145" width="150" height="4" rx="2" fill="#ff7a00" opacity="0.7"/>
+      <!-- breaking news ticker -->
+      <rect x="60" y="260" width="360" height="22" rx="3" fill="#ff7a00"/>
+      <text x="80" y="276" font-size="11" fill="#fff" font-family="Inter,sans-serif" font-weight="700">BREAKING NEWS</text>
+      <rect x="200" y="265" width="200" height="12" rx="2" fill="#fff" opacity="0.2"/>
+    </svg>`;
+
+    const svgJurnal3 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f0fdf4"/>
+      <!-- Phone mockup -->
+      <rect x="160" y="30" width="160" height="300" rx="22" fill="#1e293b"/>
+      <rect x="168" y="50" width="144" height="262" rx="14" fill="#f8fafc"/>
+      <!-- Notch -->
+      <rect x="210" y="38" width="60" height="10" rx="5" fill="#0f172a"/>
+      <!-- Social media post card -->
+      <rect x="176" y="62" width="128" height="140" rx="8" fill="#fff" stroke="#e5e7eb" stroke-width="1"/>
+      <!-- Avatar + name -->
+      <circle cx="192" cy="78" r="10" fill="#d1d5db"/>
+      <rect x="206" y="72" width="60" height="7" rx="3" fill="#374151"/>
+      <rect x="206" y="83" width="40" height="5" rx="2" fill="#9ca3af"/>
+      <!-- Post image area -->
+      <rect x="176" y="96" width="128" height="70" rx="4" fill="#e5e7eb"/>
+      <!-- Camera icon in post image -->
+      <circle cx="240" cy="131" r="18" fill="#d1d5db"/>
+      <circle cx="240" cy="131" r="10" fill="#9ca3af"/>
+      <!-- Likes / comments bar -->
+      <rect x="184" y="174" width="30" height="6" rx="3" fill="#f3f4f6"/>
+      <rect x="220" y="174" width="30" height="6" rx="3" fill="#f3f4f6"/>
+      <!-- Second card -->
+      <rect x="176" y="212" width="128" height="80" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <rect x="184" y="222" width="70" height="7" rx="3" fill="#ff7a00" opacity="0.6"/>
+      <rect x="184" y="234" width="100" height="5" rx="2" fill="#e5e7eb"/>
+      <rect x="184" y="244" width="80" height="5" rx="2" fill="#e5e7eb"/>
+      <rect x="184" y="254" width="90" height="5" rx="2" fill="#e5e7eb"/>
+      <!-- Home bar -->
+      <rect x="210" y="322" width="60" height="4" rx="2" fill="#374151"/>
+    </svg>`;
+
+    const svgJurnal4 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#fefce8"/>
+      <!-- Notebook / notepad -->
+      <rect x="80" y="40" width="240" height="300" rx="8" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <!-- Spiral binding -->
+      <rect x="70" y="40" width="20" height="300" rx="4" fill="#d1d5db"/>
+      <circle cx="80" cy="70" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="100" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="130" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="160" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="190" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="220" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="250" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="280" r="7" fill="#9ca3af"/>
+      <circle cx="80" cy="310" r="7" fill="#9ca3af"/>
+      <!-- Lines on notepad -->
+      <rect x="100" y="70" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="90" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="110" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="130" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="150" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="170" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="190" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="210" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="230" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <rect x="100" y="250" width="200" height="2" rx="1" fill="#f3f4f6"/>
+      <!-- Handwritten-style text lines -->
+      <rect x="100" y="64" width="120" height="6" rx="3" fill="#374151"/>
+      <rect x="100" y="84" width="170" height="5" rx="2.5" fill="#6b7280"/>
+      <rect x="100" y="104" width="150" height="5" rx="2.5" fill="#6b7280"/>
+      <rect x="100" y="124" width="160" height="5" rx="2.5" fill="#6b7280"/>
+      <rect x="100" y="144" width="130" height="5" rx="2.5" fill="#6b7280"/>
+      <rect x="100" y="164" width="180" height="5" rx="2.5" fill="#ff7a00" opacity="0.5"/>
+      <rect x="100" y="184" width="140" height="5" rx="2.5" fill="#6b7280"/>
+      <!-- Pen -->
+      <rect x="340" y="80" width="12" height="220" rx="6" fill="#ff7a00" transform="rotate(15 340 80)"/>
+      <path d="M388 290 L380 300 L375 295 Z" fill="#ff7a00" transform="rotate(15 340 80)"/>
+    </svg>`;
+
+    // PR slides
+    const svgPR1 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#eff6ff"/>
+      <!-- Podium / press conference -->
+      <rect x="180" y="220" width="120" height="100" rx="4" fill="#1e40af" opacity="0.15"/>
+      <rect x="200" y="200" width="80" height="30" rx="4" fill="#1e40af" opacity="0.25"/>
+      <!-- Microphones on podium -->
+      <rect x="230" y="185" width="4" height="30" fill="#374151"/>
+      <ellipse cx="232" cy="183" rx="6" ry="8" fill="#1e293b"/>
+      <rect x="242" y="188" width="3" height="26" fill="#374151"/>
+      <ellipse cx="243" cy="186" rx="5" ry="7" fill="#1e293b"/>
+      <!-- Speaker behind podium -->
+      <ellipse cx="240" cy="170" rx="26" ry="30" fill="#fbbf88"/>
+      <path d="M215 155 Q218 128 240 126 Q262 128 265 155 Q258 138 240 136 Q222 138 215 155Z" fill="#1e293b"/>
+      <rect x="220" y="190" width="40" height="50" rx="6" fill="#1e40af"/>
+      <!-- Audience seats (dots) -->
+      <circle cx="80" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="110" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="140" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="80" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <circle cx="110" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <circle cx="140" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <circle cx="340" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="370" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="400" cy="280" r="8" fill="#1e293b" opacity="0.3"/>
+      <circle cx="340" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <circle cx="370" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <circle cx="400" cy="308" r="8" fill="#1e293b" opacity="0.2"/>
+      <!-- Cameras with flashes -->
+      <rect x="60" y="230" width="50" height="34" rx="6" fill="#374151"/>
+      <rect x="66" y="236" width="38" height="22" rx="3" fill="#1e293b"/>
+      <circle cx="85" cy="247" r="8" fill="#374151"/>
+      <circle cx="85" cy="247" r="5" fill="#1e293b"/>
+      <rect x="100" y="230" width="8" height="8" rx="2" fill="#ff7a00" opacity="0.9"/>
+      <!-- Stars / flash effects -->
+      <text x="50" y="220" font-size="16" fill="#ff7a00" opacity="0.7">✦</text>
+      <text x="390" y="220" font-size="12" fill="#ff7a00" opacity="0.5">✦</text>
+      <!-- Banner backdrop -->
+      <rect x="60" y="60" width="360" height="80" rx="6" fill="#1e40af" opacity="0.08"/>
+      <rect x="80" y="80" width="200" height="10" rx="5" fill="#1e40af" opacity="0.3"/>
+      <rect x="80" y="96" width="140" height="8" rx="4" fill="#1e40af" opacity="0.2"/>
+      <rect x="80" y="110" width="160" height="8" rx="4" fill="#1e40af" opacity="0.2"/>
+    </svg>`;
+
+    const svgPR2 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f8fafc"/>
+      <!-- Network / connection diagram -->
+      <!-- Center node -->
+      <circle cx="240" cy="180" r="36" fill="#ff7a00" opacity="0.15" stroke="#ff7a00" stroke-width="2"/>
+      <circle cx="240" cy="180" r="22" fill="#ff7a00"/>
+      <!-- Connection lines -->
+      <line x1="240" y1="180" x2="100" y2="90" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="240" y1="180" x2="380" y2="90" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="240" y1="180" x2="100" y2="280" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="240" y1="180" x2="380" y2="280" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="240" y1="180" x2="240" y2="60" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <line x1="240" y1="180" x2="240" y2="310" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <!-- Outer nodes -->
+      <circle cx="100" cy="90" r="26" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <circle cx="380" cy="90" r="26" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <circle cx="100" cy="280" r="26" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <circle cx="380" cy="280" r="26" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <circle cx="240" cy="60" r="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <circle cx="240" cy="310" r="22" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <!-- Node icons (simplified) -->
+      <text x="88" y="95" font-size="16" fill="#3b82f6" font-family="sans-serif">TV</text>
+      <text x="366" y="95" font-size="16" fill="#3b82f6" font-family="sans-serif">PR</text>
+      <text x="225" y="65" font-size="14" fill="#ff7a00" font-family="sans-serif">WB</text>
+      <text x="225" y="315" font-size="14" fill="#ff7a00" font-family="sans-serif">IG</text>
+      <!-- Building icons in nodes -->
+      <rect x="88" y="272" width="20" height="16" rx="2" fill="#3b82f6" opacity="0.4"/>
+      <rect x="368" y="272" width="20" height="16" rx="2" fill="#3b82f6" opacity="0.4"/>
+    </svg>`;
+
+    const svgPR3 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#fef3c7"/>
+      <!-- Event stage -->
+      <rect x="40" y="60" width="400" height="200" rx="10" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <!-- Stage platform -->
+      <rect x="80" y="190" width="320" height="40" rx="6" fill="#1e293b" opacity="0.07"/>
+      <!-- Banner -->
+      <rect x="100" y="75" width="280" height="90" rx="8" fill="#1e40af" opacity="0.08"/>
+      <rect x="120" y="90" width="160" height="10" rx="5" fill="#1e40af" opacity="0.35"/>
+      <rect x="120" y="106" width="110" height="8" rx="4" fill="#1e40af" opacity="0.2"/>
+      <!-- Stars decoration -->
+      <text x="86" y="110" font-size="20" fill="#ff7a00" opacity="0.5">★</text>
+      <text x="370" y="110" font-size="20" fill="#ff7a00" opacity="0.5">★</text>
+      <!-- 3 people on stage -->
+      <!-- Person 1 -->
+      <ellipse cx="160" cy="165" rx="22" ry="26" fill="#fbbf88"/>
+      <rect x="140" y="184" width="40" height="40" rx="6" fill="#1e40af" opacity="0.6"/>
+      <!-- Person 2 center -->
+      <ellipse cx="240" cy="158" rx="24" ry="28" fill="#fbbf88"/>
+      <rect x="218" y="178" width="44" height="46" rx="6" fill="#ff7a00" opacity="0.7"/>
+      <!-- Person 3 -->
+      <ellipse cx="320" cy="165" rx="22" ry="26" fill="#fbbf88"/>
+      <rect x="300" y="184" width="40" height="40" rx="6" fill="#1e40af" opacity="0.6"/>
+      <!-- Balloon decorations -->
+      <circle cx="60" cy="180" r="20" fill="#ff7a00" opacity="0.3"/>
+      <circle cx="50" cy="200" r="14" fill="#ff7a00" opacity="0.2"/>
+      <line x1="60" y1="200" x2="60" y2="260" stroke="#ff7a00" stroke-width="1" opacity="0.4"/>
+      <circle cx="420" cy="180" r="20" fill="#3b82f6" opacity="0.3"/>
+      <circle cx="430" cy="200" r="14" fill="#3b82f6" opacity="0.2"/>
+      <!-- Audience -->
+      <rect x="40" y="270" width="400" height="70" rx="6" fill="#f1f5f9"/>
+      <circle cx="100" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="140" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="180" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="220" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="260" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="300" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="340" cy="295" r="12" fill="#d1d5db"/>
+      <circle cx="380" cy="295" r="12" fill="#d1d5db"/>
+    </svg>`;
+
+    const svgPR4 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f8fafc"/>
+      <!-- Crisis management / strategy board -->
+      <rect x="60" y="40" width="360" height="280" rx="10" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <!-- Board header -->
+      <rect x="60" y="40" width="360" height="36" rx="10" fill="#1e40af" opacity="0.08"/>
+      <rect x="80" y="52" width="120" height="8" rx="4" fill="#1e40af" opacity="0.4"/>
+      <!-- Columns -->
+      <rect x="80" y="92" width="90" height="200" rx="6" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="186" y="92" width="90" height="200" rx="6" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+      <rect x="292" y="92" width="90" height="200" rx="6" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+      <!-- Column titles -->
+      <rect x="88" y="100" width="60" height="7" rx="3" fill="#ff7a00" opacity="0.6"/>
+      <rect x="194" y="100" width="60" height="7" rx="3" fill="#3b82f6" opacity="0.6"/>
+      <rect x="300" y="100" width="60" height="7" rx="3" fill="#22c55e" opacity="0.6"/>
+      <!-- Cards in columns -->
+      <rect x="88" y="116" width="66" height="36" rx="5" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <rect x="90" y="121" width="50" height="5" rx="2" fill="#ff7a00" opacity="0.5"/>
+      <rect x="90" y="130" width="44" height="4" rx="2" fill="#e5e7eb"/>
+      <rect x="88" y="160" width="66" height="36" rx="5" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <rect x="90" y="165" width="50" height="5" rx="2" fill="#ff7a00" opacity="0.5"/>
+      <rect x="90" y="174" width="44" height="4" rx="2" fill="#e5e7eb"/>
+      <rect x="194" y="116" width="66" height="36" rx="5" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <rect x="196" y="121" width="50" height="5" rx="2" fill="#3b82f6" opacity="0.5"/>
+      <rect x="196" y="130" width="44" height="4" rx="2" fill="#e5e7eb"/>
+      <rect x="300" y="116" width="66" height="36" rx="5" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <rect x="302" y="121" width="50" height="5" rx="2" fill="#22c55e" opacity="0.5"/>
+      <rect x="302" y="130" width="44" height="4" rx="2" fill="#e5e7eb"/>
+    </svg>`;
+
+    // MDC slides
+    const svgMDC1 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#1a1a2e"/>
+      <!-- Camera body -->
+      <rect x="100" y="120" width="240" height="160" rx="16" fill="#2d2d3f"/>
+      <rect x="114" y="134" width="212" height="132" rx="10" fill="#1a1a2e"/>
+      <!-- Lens ring -->
+      <circle cx="220" cy="200" r="70" fill="#16213e" stroke="#374151" stroke-width="3"/>
+      <circle cx="220" cy="200" r="55" fill="#0f172a" stroke="#4b5563" stroke-width="2"/>
+      <circle cx="220" cy="200" r="40" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <circle cx="220" cy="200" r="26" fill="#0c1120"/>
+      <!-- Lens reflection -->
+      <ellipse cx="208" cy="188" rx="10" ry="7" fill="#fff" opacity="0.06"/>
+      <!-- Top controls -->
+      <rect x="140" y="108" width="60" height="14" rx="7" fill="#374151"/>
+      <circle cx="340" cy="148" r="16" fill="#374151"/>
+      <circle cx="340" cy="148" r="10" fill="#2d2d3f"/>
+      <circle cx="340" cy="148" r="5" fill="#ff7a00" opacity="0.8"/>
+      <!-- Flash mount -->
+      <rect x="200" y="102" width="40" height="20" rx="6" fill="#374151"/>
+      <!-- Screen side -->
+      <rect x="348" y="140" width="50" height="60" rx="6" fill="#334155"/>
+      <rect x="352" y="144" width="42" height="52" rx="4" fill="#0ea5e9" opacity="0.2"/>
+    </svg>`;
+
+    const svgMDC2 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#fdf4ff"/>
+      <!-- Design workspace -->
+      <!-- Color palette circles -->
+      <circle cx="80" cy="80" r="28" fill="#ff7a00"/>
+      <circle cx="140" cy="80" r="28" fill="#8b5cf6"/>
+      <circle cx="200" cy="80" r="28" fill="#3b82f6"/>
+      <circle cx="260" cy="80" r="28" fill="#22c55e"/>
+      <circle cx="320" cy="80" r="28" fill="#f43f5e"/>
+      <circle cx="380" cy="80" r="28" fill="#0ea5e9"/>
+      <!-- Large design canvas -->
+      <rect x="60" y="130" width="360" height="200" rx="12" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <!-- Layout grid on canvas -->
+      <rect x="76" y="148" width="150" height="100" rx="6" fill="#f8fafc" stroke="#f1f5f9" stroke-width="1"/>
+      <rect x="76" y="254" width="150" height="60" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <rect x="238" y="148" width="166" height="166" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <!-- Elements inside canvas -->
+      <rect x="86" y="156" width="80" height="8" rx="4" fill="#374151" opacity="0.4"/>
+      <rect x="86" y="170" width="100" height="5" rx="2" fill="#e5e7eb"/>
+      <rect x="86" y="180" width="90" height="5" rx="2" fill="#e5e7eb"/>
+      <circle cx="176" cy="200" r="20" fill="#ff7a00" opacity="0.2"/>
+      <!-- Pencil tool -->
+      <rect x="390" y="140" width="10" height="60" rx="5" fill="#ff7a00" transform="rotate(-30 390 140)"/>
+      <path d="M378 192 L372 202 L368 196 Z" fill="#ff7a00" transform="rotate(-30 390 140)"/>
+    </svg>`;
+
+    const svgMDC3 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#18181b"/>
+      <!-- Video editing timeline -->
+      <!-- Monitor -->
+      <rect x="60" y="30" width="280" height="180" rx="10" fill="#27272a"/>
+      <rect x="70" y="40" width="260" height="160" rx="6" fill="#09090b"/>
+      <!-- Video frame content -->
+      <rect x="80" y="50" width="240" height="130" rx="4" fill="#1c1c1e"/>
+      <circle cx="200" cy="115" r="35" fill="#ff7a00" opacity="0.15"/>
+      <polygon points="190,100 190,130 215,115" fill="#ff7a00" opacity="0.8"/>
+      <!-- Timeline area -->
+      <rect x="60" y="220" width="400" height="120" rx="8" fill="#27272a"/>
+      <!-- Timeline tracks -->
+      <rect x="80" y="236" width="360" height="18" rx="4" fill="#3f3f46"/>
+      <rect x="80" y="260" width="360" height="18" rx="4" fill="#3f3f46"/>
+      <rect x="80" y="284" width="360" height="18" rx="4" fill="#3f3f46"/>
+      <!-- Clips on tracks -->
+      <rect x="80" y="236" width="120" height="18" rx="4" fill="#ff7a00" opacity="0.7"/>
+      <rect x="210" y="236" width="80" height="18" rx="4" fill="#ff7a00" opacity="0.5"/>
+      <rect x="300" y="236" width="140" height="18" rx="4" fill="#ff7a00" opacity="0.4"/>
+      <rect x="80" y="260" width="200" height="18" rx="4" fill="#6d28d9" opacity="0.6"/>
+      <rect x="290" y="260" width="150" height="18" rx="4" fill="#6d28d9" opacity="0.4"/>
+      <rect x="80" y="284" width="80" height="18" rx="4" fill="#0284c7" opacity="0.6"/>
+      <rect x="170" y="284" width="160" height="18" rx="4" fill="#0284c7" opacity="0.4"/>
+      <!-- Playhead -->
+      <rect x="220" y="228" width="2" height="82" fill="#fff" opacity="0.9"/>
+      <polygon points="215,228 225,228 220,236" fill="#fff"/>
+      <!-- Tools panel right -->
+      <rect x="356" y="30" width="100" height="180" rx="8" fill="#27272a"/>
+      <rect x="366" y="46" width="80" height="10" rx="5" fill="#3f3f46"/>
+      <rect x="366" y="62" width="80" height="10" rx="5" fill="#3f3f46"/>
+      <rect x="366" y="78" width="80" height="10" rx="5" fill="#ff7a00" opacity="0.5"/>
+      <rect x="366" y="94" width="80" height="10" rx="5" fill="#3f3f46"/>
+    </svg>`;
+
+    const svgMDC4 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f0f9ff"/>
+      <!-- Ad / poster mockup -->
+      <rect x="80" y="30" width="320" height="300" rx="16" fill="#fff" stroke="#e0f2fe" stroke-width="2"/>
+      <!-- Header band -->
+      <rect x="80" y="30" width="320" height="80" rx="16" fill="#ff7a00"/>
+      <rect x="80" y="86" width="320" height="24" fill="#ff7a00"/>
+      <!-- White text lines on header -->
+      <rect x="110" y="52" width="140" height="12" rx="6" fill="#fff" opacity="0.9"/>
+      <rect x="110" y="70" width="90" height="8" rx="4" fill="#fff" opacity="0.6"/>
+      <!-- Logo placeholder circle -->
+      <circle cx="360" cy="68" r="26" fill="#fff" opacity="0.2"/>
+      <!-- Body content -->
+      <rect x="100" y="126" width="280" height="120" rx="8" fill="#f0f9ff"/>
+      <rect x="116" y="140" width="200" height="10" rx="5" fill="#0ea5e9" opacity="0.5"/>
+      <rect x="116" y="158" width="240" height="7" rx="3" fill="#e5e7eb"/>
+      <rect x="116" y="170" width="220" height="7" rx="3" fill="#e5e7eb"/>
+      <rect x="116" y="182" width="180" height="7" rx="3" fill="#e5e7eb"/>
+      <circle cx="316" cy="178" r="30" fill="#ff7a00" opacity="0.12"/>
+      <!-- CTA button -->
+      <rect x="160" y="266" width="160" height="36" rx="18" fill="#ff7a00"/>
+      <rect x="188" y="278" width="104" height="12" rx="6" fill="#fff" opacity="0.8"/>
+      <!-- Bottom text -->
+      <rect x="140" y="316" width="200" height="6" rx="3" fill="#cbd5e1"/>
+    </svg>`;
+
+    // KAB slides
+    const svgKAB1 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f0fdf4"/>
+      <!-- Globe wireframe -->
+      <circle cx="240" cy="180" r="130" fill="#fff" stroke="#d1fae5" stroke-width="2"/>
+      <ellipse cx="240" cy="180" rx="60" ry="130" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+      <ellipse cx="240" cy="180" rx="100" ry="130" fill="none" stroke="#a7f3d0" stroke-width="1"/>
+      <line x1="110" y1="180" x2="370" y2="180" stroke="#6ee7b7" stroke-width="1.5"/>
+      <path d="M116 120 Q240 100 364 120" fill="none" stroke="#a7f3d0" stroke-width="1"/>
+      <path d="M116 240 Q240 260 364 240" fill="none" stroke="#a7f3d0" stroke-width="1"/>
+      <circle cx="240" cy="180" r="130" fill="none" stroke="#34d399" stroke-width="2"/>
+      <!-- Country dots -->
+      <circle cx="160" cy="140" r="8" fill="#ff7a00"/>
+      <circle cx="300" cy="150" r="6" fill="#ff7a00" opacity="0.7"/>
+      <circle cx="200" cy="220" r="7" fill="#ff7a00" opacity="0.6"/>
+      <circle cx="280" cy="210" r="5" fill="#ff7a00" opacity="0.5"/>
+      <circle cx="240" cy="130" r="9" fill="#10b981"/>
+      <!-- Connection arcs between dots -->
+      <path d="M160 140 Q240 80 300 150" fill="none" stroke="#ff7a00" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+      <path d="M160 140 Q180 190 200 220" fill="none" stroke="#ff7a00" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+      <path d="M300 150 Q290 185 280 210" fill="none" stroke="#ff7a00" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.4"/>
+    </svg>`;
+
+    const svgKAB2 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#fefce8"/>
+      <!-- Cultural pattern / fabric motif background -->
+      <pattern id="batik" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+        <circle cx="20" cy="20" r="6" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.4"/>
+        <rect x="0" y="19" width="40" height="2" fill="#fbbf24" opacity="0.15"/>
+        <rect x="19" y="0" width="2" height="40" fill="#fbbf24" opacity="0.15"/>
+      </pattern>
+      <rect width="480" height="360" fill="url(#batik)"/>
+      <!-- Speech bubbles representing different languages -->
+      <!-- Bubble 1 - Indonesian -->
+      <path d="M80 80 Q80 50 120 50 L220 50 Q260 50 260 80 Q260 110 220 110 L140 110 L120 130 L118 110 Q80 110 80 80Z" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <rect x="100" y="66" width="80" height="7" rx="3" fill="#374151" opacity="0.5"/>
+      <rect x="100" y="80" width="120" height="5" rx="2" fill="#e5e7eb"/>
+      <rect x="100" y="90" width="100" height="5" rx="2" fill="#e5e7eb"/>
+      <!-- Flag accent -->
+      <rect x="220" y="60" width="28" height="18" rx="3" fill="#ef4444"/>
+      <rect x="220" y="69" width="28" height="9" rx="0" fill="#fff"/>
+      <!-- Bubble 2 - English -->
+      <path d="M260 160 Q260 130 300 130 L400 130 Q440 130 440 160 Q440 190 400 190 L320 190 L300 210 L298 190 Q260 190 260 160Z" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <rect x="280" y="148" width="80" height="7" rx="3" fill="#1e40af" opacity="0.4"/>
+      <rect x="280" y="162" width="120" height="5" rx="2" fill="#bfdbfe"/>
+      <rect x="280" y="172" width="100" height="5" rx="2" fill="#bfdbfe"/>
+      <!-- Bubble 3 - Traditional -->
+      <path d="M60 240 Q60 210 100 210 L180 210 Q220 210 220 240 Q220 270 180 270 L120 270 L100 290 L98 270 Q60 270 60 240Z" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="80" y="228" width="70" height="7" rx="3" fill="#ff7a00" opacity="0.5"/>
+      <rect x="80" y="242" width="110" height="5" rx="2" fill="#fed7aa"/>
+    </svg>`;
+
+    const svgKAB3 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#fdf4ff"/>
+      <!-- Research / academic setting -->
+      <!-- Bookshelf -->
+      <rect x="40" y="60" width="400" height="240" rx="8" fill="#fff" stroke="#e5e7eb" stroke-width="1.5"/>
+      <!-- Shelf lines -->
+      <rect x="40" y="150" width="400" height="4" rx="2" fill="#f1f5f9"/>
+      <rect x="40" y="240" width="400" height="4" rx="2" fill="#f1f5f9"/>
+      <!-- Books row 1 -->
+      <rect x="56" y="70" width="22" height="76" rx="3" fill="#ff7a00" opacity="0.8"/>
+      <rect x="82" y="78" width="18" height="68" rx="3" fill="#8b5cf6" opacity="0.7"/>
+      <rect x="104" y="72" width="26" height="74" rx="3" fill="#3b82f6" opacity="0.7"/>
+      <rect x="134" y="76" width="20" height="70" rx="3" fill="#22c55e" opacity="0.7"/>
+      <rect x="158" y="68" width="24" height="78" rx="3" fill="#f43f5e" opacity="0.6"/>
+      <rect x="186" y="74" width="16" height="72" rx="3" fill="#ff7a00" opacity="0.5"/>
+      <rect x="206" y="70" width="28" height="76" rx="3" fill="#0ea5e9" opacity="0.7"/>
+      <rect x="238" y="76" width="20" height="70" rx="3" fill="#8b5cf6" opacity="0.5"/>
+      <rect x="262" y="68" width="22" height="78" rx="3" fill="#ff7a00" opacity="0.6"/>
+      <rect x="288" y="72" width="26" height="74" rx="3" fill="#3b82f6" opacity="0.5"/>
+      <rect x="318" y="78" width="18" height="68" rx="3" fill="#22c55e" opacity="0.6"/>
+      <rect x="340" y="70" width="24" height="76" rx="3" fill="#f43f5e" opacity="0.5"/>
+      <rect x="368" y="74" width="20" height="72" rx="3" fill="#0ea5e9" opacity="0.6"/>
+      <rect x="392" y="68" width="22" height="78" rx="3" fill="#8b5cf6" opacity="0.6"/>
+      <!-- Books row 2 -->
+      <rect x="56" y="158" width="30" height="78" rx="3" fill="#3b82f6" opacity="0.6"/>
+      <rect x="90" y="164" width="22" height="72" rx="3" fill="#ff7a00" opacity="0.7"/>
+      <rect x="116" y="158" width="26" height="78" rx="3" fill="#22c55e" opacity="0.5"/>
+      <rect x="146" y="162" width="20" height="74" rx="3" fill="#8b5cf6" opacity="0.7"/>
+      <rect x="170" y="156" width="28" height="80" rx="3" fill="#f43f5e" opacity="0.5"/>
+      <rect x="202" y="160" width="22" height="76" rx="3" fill="#0ea5e9" opacity="0.6"/>
+      <rect x="228" y="156" width="30" height="80" rx="3" fill="#ff7a00" opacity="0.5"/>
+      <rect x="262" y="162" width="24" height="74" rx="3" fill="#3b82f6" opacity="0.7"/>
+      <rect x="290" y="158" width="20" height="78" rx="3" fill="#8b5cf6" opacity="0.5"/>
+      <rect x="314" y="160" width="26" height="76" rx="3" fill="#22c55e" opacity="0.7"/>
+      <rect x="344" y="156" width="22" height="80" rx="3" fill="#ff7a00" opacity="0.6"/>
+      <rect x="370" y="162" width="24" height="74" rx="3" fill="#0ea5e9" opacity="0.5"/>
+      <!-- Globe ornament on shelf -->
+      <circle cx="120" cy="266" r="22" fill="none" stroke="#d1fae5" stroke-width="2"/>
+      <ellipse cx="120" cy="266" rx="10" ry="22" fill="none" stroke="#6ee7b7" stroke-width="1.5"/>
+      <line x1="98" y1="266" x2="142" y2="266" stroke="#6ee7b7" stroke-width="1.5"/>
+      <circle cx="120" cy="266" r="22" fill="none" stroke="#34d399" stroke-width="1.5"/>
+    </svg>`;
+
+    const svgKAB4 = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+      <rect width="480" height="360" fill="#f0f9ff"/>
+      <!-- Handshake / diplomacy illustration -->
+      <!-- Background subtle pattern -->
+      <circle cx="240" cy="180" r="140" fill="#e0f2fe" opacity="0.5"/>
+      <circle cx="240" cy="180" r="100" fill="#bfdbfe" opacity="0.2"/>
+      <!-- Two sides / two flags -->
+      <!-- Flag 1 left -->
+      <rect x="80" y="80" width="3" height="120" fill="#374151"/>
+      <rect x="83" y="80" width="60" height="40" rx="2" fill="#ef4444"/>
+      <rect x="83" y="100" width="60" height="20" rx="0" fill="#fff"/>
+      <!-- Flag 2 right -->
+      <rect x="397" y="80" width="3" height="120" fill="#374151"/>
+      <rect x="337" y="80" width="60" height="40" rx="2" fill="#1e40af"/>
+      <rect x="337" y="88" width="60" height="8" rx="0" fill="#fff" opacity="0.4"/>
+      <rect x="337" y="104" width="60" height="8" rx="0" fill="#fff" opacity="0.4"/>
+      <!-- Handshake center -->
+      <!-- Left hand -->
+      <path d="M140 190 Q160 170 200 180 L230 178 Q240 178 240 188 Q240 198 228 198 L210 198 Q230 210 230 220 Q230 232 216 232 Q220 242 208 244 Q210 254 196 254 L170 254 Q150 254 140 240 Z" fill="#fbbf88"/>
+      <!-- Right hand -->
+      <path d="M340 190 Q320 170 280 180 L250 178 Q240 178 240 188 Q240 198 252 198 L270 198 Q250 210 250 220 Q250 232 264 232 Q260 242 272 244 Q270 254 284 254 L310 254 Q330 254 340 240 Z" fill="#f5cba7"/>
+      <!-- Cuff left -->
+      <rect x="126" y="185" width="24" height="60" rx="6" fill="#1e40af" opacity="0.7"/>
+      <!-- Cuff right -->
+      <rect x="330" y="185" width="24" height="60" rx="6" fill="#374151" opacity="0.7"/>
+      <!-- Glow / connection symbol -->
+      <circle cx="240" cy="216" r="16" fill="#ff7a00" opacity="0.2"/>
+      <circle cx="240" cy="216" r="8" fill="#ff7a00" opacity="0.5"/>
+    </svg>`;
+
+    // ── Data ────────────────────────────────────────────────────────────────────
+
+    const konsenData = {
+      jurnalistik: {
+        label: "Jurnalistik",
+        shortDesc:
+          "Mendalami seni bercerita melalui berita yang akurat, objektif, dan berdampak sosial.",
+        desc: "Mendalami seni bercerita melalui berita yang akurat, objektif, dan berdampak sosial.",
+        benefits: [
+          "Mengembangkan kemampuan investigasi dan riset mendalam",
+          "Melatih penulisan yang clear, concise, dan compelling",
+          "Memahami etika jurnalisme dan tanggung jawab sosial media",
+          "Belajar storytelling yang menarik dan berpengaruh",
+        ],
+        careers: [
+          "Reporter di media massa (cetak, digital, broadcast)",
+          "Editor dan redaktur berita",
+          "Jurnalis investigatif independen",
+          "Content creator dan media strategist",
+          "Dokumenter filmmaker",
+        ],
+        slides: [
+          '<img src="foto konsentrasi/jurnalistik-1.jpg" alt="Jurnalistik 1" />',
+          '<img src="foto konsentrasi/jurnalistik-1.jpg" />',
+          '<img src="foto konsentrasi/jurnalistik-1.jpg" alt="Jurnalistik 3" />',
+          '<img src="foto konsentrasi/jurnalistik-1.jpg" />',
+        ],
+      },
+      pr: {
+        label: "Public Relations",
+        shortDesc:
+          "Membangun dan mengelola reputasi organisasi melalui komunikasi strategis dan hubungan publik yang...",
+        desc: "Membangun dan mengelola reputasi organisasi melalui komunikasi strategis dan hubungan publik yang efektif.",
+        benefits: [
+          "Merancang strategi komunikasi korporat yang terstruktur",
+          "Mengelola krisis komunikasi dan reputasi lembaga",
+          "Membangun relasi media dan jaringan profesional",
+          "Menguasai komunikasi publik dan presentasi strategis",
+        ],
+        careers: [
+          "Public Relations Officer di perusahaan swasta",
+          "Humas lembaga pemerintah dan instansi publik",
+          "Brand & reputation manager",
+          "Event organizer dan corporate communication",
+          "Marketing communication specialist",
+        ],
+        slides: [
+          '<img src="foto konsentrasi/public relation-1.jpg" alt="Public Relations 1" />',
+          '<img src="foto konsentrasi/public relation-1.jpg" alt="Public Relations 2" />',
+          '<img src="foto konsentrasi/public relation-1.jpg" alt="Public Relations 3" />',
+          '<img src="foto konsentrasi/public relation-1.jpg" alt="Public Relations 4" />',
+        ],
+      },
+      mdc: {
+        label: "Media Desain Komunikasi",
+        shortDesc:
+          "Menciptakan pesan visual yang powerful melalui desain grafis, multimedia, dan teknologi...",
+        desc: "Menciptakan pesan visual yang powerful melalui desain grafis, multimedia, dan teknologi kreatif.",
+        benefits: [
+          "Menguasai teknik fotografi, videografi, dan desain grafis",
+          "Menyampaikan pesan kuat melalui visual storytelling",
+          "Siap berkarir di industri periklanan, film, dan media digital",
+          "Menghasilkan portofolio karya nyata siap industri",
+        ],
+        careers: [
+          "Videografer dan sinematografer profesional",
+          "Fotografer komersial dan editorial",
+          "Desainer grafis dan motion graphic designer",
+          "Creative director di agensi kreatif",
+          "Content producer dan art director",
+        ],
+        slides: [
+          '<img src="foto konsentrasi/mdc-1.jpg" alt="MDC 1" />',
+          '<img src="foto konsentrasi/mdc-1.jpg" alt="MDC 2" />',
+          '<img src="foto konsentrasi/mdc-1.jpg" alt="MDC 3" />',
+          '<img src="foto konsentrasi/mdc-1.jpg" alt="MDC 4" />',
+        ],
+      },
+      kab: {
+        label: "Komunikasi Antarbudaya",
+        shortDesc:
+          "Mengeksplorasi dinamika komunikasi lintas budaya untuk membangun pemahaman global dan dialog yang...",
+        desc: "Mengeksplorasi dinamika komunikasi lintas budaya untuk membangun pemahaman global dan dialog yang inklusif.",
+        benefits: [
+          "Sensitif terhadap keberagaman budaya dan komunikasi inklusif",
+          "Siap bekerja di lingkungan multikultural dan internasional",
+          "Terampil riset etnografi dan analisis komunikasi budaya",
+          "Mampu menjadi mediator dalam konflik berbasis perbedaan budaya",
+        ],
+        careers: [
+          "Diplomat dan staf kedutaan besar",
+          "Konsultan komunikasi budaya internasional",
+          "Peneliti sosial dan budaya",
+          "Koordinator program NGO dan LSM internasional",
+          "Akademisi dan pengajar komunikasi",
+        ],
+        slides: [
+          '<img src="foto konsentrasi/komunikasi antarbudaya-1.jpg" alt="Komunikasi Antarbudaya 1" />',
+          '<img src="foto konsentrasi/komunikasi antarbudaya-1.jpg" alt="Komunikasi Antarbudaya 2" />',
+          '<img src="foto konsentrasi/komunikasi antarbudaya-1.jpg" alt="Komunikasi Antarbudaya 3" />',
+          '<img src="foto konsentrasi/komunikasi antarbudaya-1.jpg" alt="Komunikasi Antarbudaya 4" />',
+        ],
+      },
+    };
+
+    const konsenKeys = ["jurnalistik", "pr", "mdc", "kab"];
+    let currentKey = "jurnalistik";
+    let currentSlide = 0;
+
+    // ── Slider ──────────────────────────────────────────────────────────────────
+
+    function buildSlider(key) {
+      const track = document.getElementById("sliderTrack");
+      const dots = document.getElementById("sliderDots");
+      const slides = konsenData[key].slides;
+      currentSlide = 0;
+
+      track.innerHTML = slides
+        .map(
+          (svg) => `
+        <div class="slide"><div class="slide-inner">${svg}</div></div>`,
+        )
+        .join("");
+      dots.innerHTML = slides
+        .map(
+          (_, i) => `
+        <button class="dot ${i === 0 ? "active" : ""}" data-i="${i}"></button>`,
+        )
+        .join("");
+
+      dots
+        .querySelectorAll(".dot")
+        .forEach((d) =>
+          d.addEventListener("click", () => goTo(parseInt(d.dataset.i))),
+        );
+      track.style.transform = "translateX(0)";
+    }
+
+    function goTo(i) {
+      const slides = konsenData[currentKey].slides;
+      currentSlide = (i + slides.length) % slides.length;
+      document.getElementById("sliderTrack").style.transform =
+        `translateX(-${currentSlide * 100}%)`;
+      document
+        .querySelectorAll(".dot")
+        .forEach((d, idx) =>
+          d.classList.toggle("active", idx === currentSlide),
+        );
+    }
+
+    document
+      .getElementById("prevBtn")
+      .addEventListener("click", () => goTo(currentSlide - 1));
+    document
+      .getElementById("nextBtn")
+      .addEventListener("click", () => goTo(currentSlide + 1));
+
+    // ── Info Panel ──────────────────────────────────────────────────────────────
+
+    function buildInfo(key) {
+      const d = konsenData[key];
+      const benefitsHTML = d.benefits
+        .map(
+          (b) => `
+        <li class="flex items-start gap-2 text-slate-600 text-[15px]">
+          <span class="bullet-orange flex items-center pt-[5px]"></span>${b}
+        </li>`,
+        )
+        .join("");
+      const careersHTML = d.careers
+        .map(
+          (c) => `
+        <li class="flex items-start gap-2 text-slate-600 text-[15px]">
+          <span class="bullet-green flex items-center pt-[5px]"></span>${c}
+        </li>`,
+        )
+        .join("");
+
+      document.getElementById("infoPanel").innerHTML = `
+        <div class="fade-in">
+          <h2 class="text-3xl font-bold text-slate-900 mb-3">${d.label}</h2>
+          <p class="text-slate-500 text-base leading-relaxed mb-8">${d.desc}</p>
+
+          <h3 class="text-[16px] font-bold text-slate-800 mb-4">Keuntungan Konsentrasi Ini:</h3>
+          <ul class="space-y-3 mb-8">${benefitsHTML}</ul>
+
+          <h3 class="text-[16px] font-bold text-slate-800 mb-4">Peluang Karir:</h3>
+          <ul class="space-y-3">${careersHTML}</ul>
+        </div>`;
+    }
+
+    // ── Selector Cards ──────────────────────────────────────────────────────────
+
+    function buildCards() {
+      const container = document.getElementById("selectorCards");
+      container.innerHTML = konsenKeys
+        .map((key) => {
+          const d = konsenData[key];
+          const isActive = key === currentKey;
+          return `
+          <div class="ks-card ${isActive ? "active" : ""}" data-key="${key}">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-[15px] ${isActive ? "ks-title-active text-primary" : "ks-title-inactive"}">${d.label}</h3>
+              <span class="ks-dot mt-1"></span>
+            </div>
+            <p class="text-slate-500 text-sm leading-relaxed">${d.shortDesc}</p>
+          </div>`;
+        })
+        .join("");
+
+      container.querySelectorAll(".ks-card").forEach((card) => {
+        card.addEventListener("click", () => switchKonsen(card.dataset.key));
+      });
+    }
+
+    // ── Switch ──────────────────────────────────────────────────────────────────
+
+    function switchKonsen(key) {
+      currentKey = key;
+      buildSlider(key);
+      buildInfo(key);
+      buildCards();
+    }
+
+    // ── Init ────────────────────────────────────────────────────────────────────
+
+    buildSlider("jurnalistik");
+    buildInfo("jurnalistik");
+    buildCards();
+  </script>
+</body>
+
+</html>
