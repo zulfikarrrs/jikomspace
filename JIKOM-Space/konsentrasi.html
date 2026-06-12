@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JIKOM Konsentrasi — JIKOM Space</title>
+  <meta name="description" content="JIKOM Space · Ruang Digital Mahasiswa JIKOM Undana" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jikomspace.vercel.app/" />
+  <meta property="og:title" content="JIKOM Space" />
+  <meta property="og:description"
+    content="Ruang digital mahasiswa JIKOM Undana untuk layanan akademik, portofolio karya, dan informasi prodi terpadu." />
+  <meta property="og:image" content="https://jikomspace.vercel.app/tampilan%20bagikan.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://jikomspace.vercel.app/" />
+  <meta property="twitter:title" content="JIKOM Space" />
+  <meta property="twitter:description"
+    content="Ruang digital mahasiswa JIKOM Undana untuk layanan akademik, portofolio karya, dan informasi prodi terpadu." />
+  <meta property="twitter:image" content="https://jikomspace.vercel.app/tampilan%20bagikan.png" />
+  <link rel="icon" href="kumpulan logo/logo jikom.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#ff7a00" },
+          fontFamily: { sans: ["Inter", "ui-sans-serif"] },
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #ff7a00;
+      --primary-light: #fff7ed;
+      --primary-mid: #fed7aa;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #ff7a00 #f8f8f8;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ff7a00, #ff9a40);
+      border-radius: 10px;
+      border: 1.5px solid #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #e56a00, #ff7a00);
+    }
+
+    /* Navbar */
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-link.active-page {
+      color: var(--primary);
+    }
+
+    .nav-link.active-page::after {
+      transform: scaleX(1);
+    }
+
+    .clickable {
+      transition: transform 0.12s, filter 0.2s;
+    }
+
+    .clickable:active {
+      transform: translateY(1px) scale(0.985);
+    }
+
+    /* ── TAB SELECTOR ── */
+    .konsen-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      /* di mobile otomatis turun baris kalau muat */
+      padding-bottom: 2px;
+      margin-top: 50px;
+    }
+
+    .konsen-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ktab {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .ktab:hover {
+      border-color: #cbd5e1;
+      color: #0f172a;
+      background: #f8fafc;
+    }
+
+    .ktab:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .ktab.active {
+      background: #ff7a00;
+      border-color: #ff7a00;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35);
+    }
+
+    .ktab-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ── SLIDER ── */
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #f1f5f9;
+      aspect-ratio: 16/9;
+    }
+
+    .slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide img,
+    .slide svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Slide nav buttons */
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .slide-btn:hover {
+      background: #ff7a00;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .slide-btn:hover svg {
+      stroke: #fff;
+    }
+
+    .slide-btn.prev {
+      left: 12px;
+    }
+
+    .slide-btn.next {
+      right: 12px;
+    }
+
+    /* Dots */
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: #fff;
+      width: 22px;
+      border-radius: 3px;
+    }
+
+    /* ── INFO SECTION ── */
+    .bullet-orange::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff7a00;
+      margin-right: 10px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .bullet-green::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 10px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Fade animation */
+    .fade-in {
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Two-column grid for career + benefits on desktop */
+    @media (min-width: 768px) {
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased text-slate-800">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="kumpulan logo/ikon jikom.png" alt="ikon jikom" class="w-19 h-12 rounded-lg object-contain" />
+      </a>
+      <div class="hidden lg:flex items-center gap-7 text-[12px] font-medium text-slate-700">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="berkas.html" class="nav-link">Berkas</a>
+        <a href="karya.html" class="nav-link">Karya</a>
+        <a href="publish.html" class="nav-link">Publish</a>
+        <a href="info.html" class="nav-link">Info</a>
+        <a href="konsentrasi.html" class="nav-link active-page">Konsentrasi</a>
+        <a href="index.html#kontak" class="nav-link">Kontak</a>
+        <div class="ml-3 flex items-center gap-3">
+          <a href="https://www.instagram.com/jikomundana/" target="_blank" rel="noopener noreferrer"
+            title="Instagram JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 0 0-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.756 6.162 6.162 6.162 3.405 0 6.162-2.757 6.162-6.162 0-3.404-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@jikom.undana" target="_blank" rel="noopener noreferrer"
+            title="TikTok JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.41a8.16 8.16 0 0 0 4.77 1.52V7.49a4.85 4.85 0 0 1-1.01-.8z" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@jikomundana" target="_blank" rel="noopener noreferrer"
+            title="YouTube JIKOM Undana" class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-slate-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="lg:hidden bg-white border-t border-slate-100 px-4 pb-4" style="display: none">
+      <div class="flex flex-col gap-1 pt-3">
+        <a href="index.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Beranda</a>
+        <a href="berkas.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Berkas</a>
+        <a href="karya.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Karya</a>
+        <a href="publish.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Publish</a>
+        <a href="info.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Info</a>
+        <a href="konsentrasi.html"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium bg-orange-50 text-primary">Konsentrasi</a>
+        <a href="index.html#kontak"
+          class="mobile-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-700">Kontak</a>
+        <div class="mt-2 flex items-center justify-center gap-4">
+          <a href="https://www.instagram.com/jikomundana/" target="_blank" rel="noopener noreferrer" title="Instagram"
+            class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 0 0-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.756 6.162 6.162 6.162 3.405 0 6.162-2.757 6.162-6.162 0-3.404-2.757-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@jikom.undana" target="_blank" rel="noopener noreferrer" title="TikTok"
+            class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V9.41a8.16 8.16 0 0 0 4.77 1.52V7.49a4.85 4.85 0 0 1-1.01-.8z" />
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@jikomundana" target="_blank" rel="noopener noreferrer" title="YouTube"
+            class="clickable text-primary hover:text-orange-600 transition-colors">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+    <!-- HERO -->
+    <section style="
+          position: relative;
+          padding: 80px 24px 64px;
+          text-align: center;
+          background: #0b0f19;
+          border-bottom: 1px solid #1e293b;
+          overflow: hidden;
+        ">
+      <!-- Background decorations -->
+      <div style="position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;">
+        <div
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(255, 122, 0, 0.12) 0%, rgba(255, 122, 0, 0) 70%); pointer-events: none;">
+        </div>
+        <div
+          style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px); background-size: 44px 44px;">
+        </div>
+        <svg width="100%" height="100%" style="position: absolute; inset: 0; opacity: 0.85;">
+          <circle cx="15%" cy="45%" r="200" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" fill="none" />
+          <circle cx="15%" cy="45%" r="300" stroke="rgba(255, 122, 0, 0.035)" stroke-width="1" fill="none" />
+          <circle cx="85%" cy="55%" r="280" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" fill="none" />
+          <circle cx="85%" cy="55%" r="200" stroke="rgba(255, 122, 0, 0.04)" stroke-width="1" fill="none"
+            stroke-dasharray="4, 4" />
+          <circle cx="14%" cy="28%" r="2" fill="#ff7a00" style="opacity: 0.55; filter: drop-shadow(0 0 3px #ff7a00);" />
+          <circle cx="9%" cy="52%" r="2.5" fill="#ff7a00" style="opacity: 0.5; filter: drop-shadow(0 0 3px #ff7a00);" />
+          <circle cx="76%" cy="23%" r="2" fill="#ff7a00" style="opacity: 0.5; filter: drop-shadow(0 0 3px #ff7a00);" />
+          <circle cx="88%" cy="42%" r="1.5" fill="#ff7a00" style="opacity: 0.3;" />
+        </svg>
+      </div>
+
+      <div style="position: relative; z-index: 10; max-width: 680px; margin: 0 auto;">
+        <p
+          style="font-size: 13px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #ff7a00; margin-bottom: 22px;">
+          JIKOM KONSENTRASI
+        </p>
+        <h1
+          style="font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: #ffffff; line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.02em;">
+          Temukan Jalanmu di JIKOM
+        </h1>
+        <p style="font-size: 17px; color: #94a3b8; margin: 0;">
+          Pilih konsentrasi yang paling cocok untukmu dan eksplorasi lebih dalam.
+        </p>
+      </div>
+    </section>
+
+    <!-- MAIN SECTION -->
+    <section class="pb-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <!-- ── TAB SELECTOR (atas) ── -->
+        <div class="konsen-tabs mb-4" id="konsenTabs"></div>
+
+        <!-- ── SLIDER ── -->
+        <div class="slider-wrapper mb-8" id="sliderWrapper">
+          <div class="slider-track" id="sliderTrack"></div>
+          <button class="slide-btn prev" id="prevBtn">
+            <svg width="16" height="16" fill="none" stroke="#374151" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button class="slide-btn next" id="nextBtn">
+            <svg width="16" height="16" fill="none" stroke="#374151" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <!-- ── INFO PANEL ── -->
+        <div id="infoPanel"></div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="kontak" class="bg-[#0c1c32] text-white pt-14 pb-6">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="kumpulan logo/logo jikom.png" alt="Logo jikom" class="w-9 h-9 rounded-lg object-contain" />
+          <div>
+            <p class="font-bold">JIKOM Space</p>
+            <p class="text-xs text-slate-400">Universitas Nusa Cendana</p>
+          </div>
+        </div>
+        <p class="text-sm text-slate-300">Ruang digital mahasiswa JIKOM Undana untuk layanan akademik dan Kreativitasmu.
+        </p>
+        <p class="text-sm text-slate-300 mt-4">Jl. Adisucipto Penfui, Kupang, NTT 85001</p>
+        <p class="text-sm text-slate-300">(0380) 881580</p>
+        <p class="text-sm text-slate-300">jikom@undana.ac.id</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Fitur</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li><a href="berkas.html" class="hover:text-primary transition-colors">JIKOM Berkas</a></li>
+          <li><a href="karya.html" class="hover:text-primary transition-colors">JIKOM Karya</a></li>
+          <li><a href="publish.html" class="hover:text-primary transition-colors">JIKOM Publish</a></li>
+          <li><a href="info.html" class="hover:text-primary transition-colors">JIKOM Info</a></li>
+          <li><a href="konsentrasi.html" class="hover:text-primary transition-colors">JIKOM Konsentrasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Program Studi</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li><a href="https://jikom.undana.ac.id/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">Profil
+              Prodi</a></li>
+          <li><a href="https://jikom.undana.ac.id/visi-dan-misi/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">Visi dan Misi</a></li>
+          <li><a href="https://jikom.undana.ac.id/kurikulum/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">Kurikulum</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Universitas</h4>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li><a href="https://undana.ac.id" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">Website
+              Undana</a></li>
+          <li><a href="https://fisip.undana.ac.id" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">FISIP
+              Undana</a></li>
+          <li><a href="https://siakad.undana.ac.id" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">SIAKAD</a></li>
+          <li><a href="https://spada.undana.ac.id/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-primary transition-colors">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-10 border-t border-slate-700 pt-4 text-xs text-slate-400">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-2 md:items-center md:justify-between">
+        <p>JIKOM Space | Prodi Ilmu Komunikasi Universitas Nusa Cendana</p>
+        <p>Kebijakan Privasi · Syarat dan Ketentuan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <a href="https://forms.gle/xhhuCEbHjmVXP1zJ9" target="_blank" rel="noopener noreferrer" id="aspirasi-btn"
+    class="collapsed" title="Kirim Aspirasi">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+    <span id="aspirasi-label">Aspirasi</span>
+  </a>
+  <a href="https://wa.me/6285738319197" target="_blank" rel="noopener noreferrer" id="wa-btn" class="collapsed"
+    title="Hubungi Admin via WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    </svg>
+    <span id="wa-label">Admin</span>
+  </a>
+
+  <style>
+    #aspirasi-btn {
+      position: fixed;
+      bottom: 88px;
+      right: 28px;
+      z-index: 9999;
+      background-color: #F97316;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.45);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      width: 145px;
+      justify-content: center;
+    }
+
+    #aspirasi-btn:hover {
+      background-color: #EA6C0A;
+      box-shadow: 0 6px 28px rgba(249, 115, 22, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #aspirasi-btn:active {
+      transform: translateY(0px);
+    }
+
+    #aspirasi-label {
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    #aspirasi-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background-color: rgba(249, 115, 22, 0.35);
+      animation: pulse-ring 2.5s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
+    }
+
+    #aspirasi-btn.collapsed {
+      padding: 14px;
+      width: 52px;
+    }
+
+    #aspirasi-btn.collapsed #aspirasi-label {
+      width: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    #wa-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background-color: #25D366;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      width: 145px;
+      justify-content: center;
+    }
+
+    #wa-btn:hover {
+      background-color: #1ebe5d;
+      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6);
+      transform: translateY(-2px);
+    }
+
+    #wa-btn:active {
+      transform: translateY(0px);
+    }
+
+    #wa-label {
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    #wa-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background-color: rgba(37, 211, 102, 0.35);
+      animation: pulse-ring-wa 2.5s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring-wa {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
+    }
+
+    #wa-btn.collapsed {
+      padding: 14px;
+      width: 52px;
+    }
+
+    #wa-btn.collapsed #wa-label {
+      width: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <script>
+    // Floating buttons
+    const btnAspirasi = document.getElementById('aspirasi-btn');
+    const btnWA = document.getElementById('wa-btn');
+    const handleExpand = (btn) => btn.classList.remove('collapsed');
+    const handleCollapse = (btn) => btn.classList.add('collapsed');
+    btnAspirasi.addEventListener('click', (e) => { if (btnAspirasi.classList.contains('collapsed')) { e.preventDefault(); handleExpand(btnAspirasi); } });
+    btnWA.addEventListener('click', (e) => { if (btnWA.classList.contains('collapsed')) { e.preventDefault(); handleExpand(btnWA); } });
+    btnAspirasi.addEventListener('mouseenter', () => handleExpand(btnAspirasi));
+    btnAspirasi.addEventListener('mouseleave', () => setTimeout(() => handleCollapse(btnAspirasi), 1500));
+    btnWA.addEventListener('mouseenter', () => handleExpand(btnWA));
+    btnWA.addEventListener('mouseleave', () => setTimeout(() => handleCollapse(btnWA), 1500));
+
+    // Mobile menu
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      const m = document.getElementById("mobileMenu");
+      m.style.display = m.style.display === "none" ? "block" : "none";
+    });
+    document.querySelectorAll(".mobile-link").forEach(l => l.addEventListener("click", () => {
+      document.getElementById("mobileMenu").style.display = "none";
+    }));
+
+    // ── DATA ───────────────────────────────────────────────────────────────────
+    const konsenData = {
+      jurnalistik: {
+        label: "Jurnalistik",
+        icon: `<svg class="ktab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/></svg>`,
+        desc: "Mendalami seni bercerita melalui berita yang akurat, objektif, dan berdampak sosial.",
+        benefits: [
+          "Mengembangkan kemampuan investigasi dan riset mendalam",
+          "Melatih penulisan yang clear, concise, dan compelling",
+          "Memahami etika jurnalisme dan tanggung jawab sosial media",
+          "Belajar storytelling yang menarik dan berpengaruh",
+        ],
+        careers: [
+          "Reporter di media massa (cetak, digital, broadcast)",
+          "Editor dan redaktur berita",
+          "Jurnalis investigatif independen",
+          "Content creator dan media strategist",
+          "Dokumenter filmmaker",
+        ],
+        slides: [
+          "foto konsentrasi/jurnalistik-1.jpg",
+          "foto konsentrasi/jurnalistik-1.jpg",
+          "foto konsentrasi/jurnalistik-1.jpg",
+          "foto konsentrasi/jurnalistik-1.jpg",
+        ],
+      },
+      pr: {
+        label: "Public Relations",
+        icon: `<svg class="ktab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+        desc: "Membangun dan mengelola reputasi organisasi melalui komunikasi strategis dan hubungan publik yang efektif.",
+        benefits: [
+          "Merancang strategi komunikasi korporat yang terstruktur",
+          "Mengelola krisis komunikasi dan reputasi lembaga",
+          "Membangun relasi media dan jaringan profesional",
+          "Menguasai komunikasi publik dan presentasi strategis",
+        ],
+        careers: [
+          "Public Relations Officer di perusahaan swasta",
+          "Humas lembaga pemerintah dan instansi publik",
+          "Brand & reputation manager",
+          "Event organizer dan corporate communication",
+          "Marketing communication specialist",
+        ],
+        slides: [
+          "foto konsentrasi/public relation-1.jpg",
+          "foto konsentrasi/public relation-1.jpg",
+          "foto konsentrasi/public relation-1.jpg",
+          "foto konsentrasi/public relation-1.jpg",
+        ],
+      },
+      mdc: {
+        label: "Media Desain Komunikasi",
+        tabLabel: "MDC",
+        icon: `<svg class="ktab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+        desc: "Menciptakan pesan visual yang powerful melalui desain grafis, multimedia, dan teknologi kreatif.",
+        benefits: [
+          "Menguasai teknik fotografi, videografi, dan desain grafis",
+          "Menyampaikan pesan kuat melalui visual storytelling",
+          "Siap berkarir di industri periklanan, film, dan media digital",
+          "Menghasilkan portofolio karya nyata siap industri",
+        ],
+        careers: [
+          "Videografer dan sinematografer profesional",
+          "Fotografer komersial dan editorial",
+          "Desainer grafis dan motion graphic designer",
+          "Creative director di agensi kreatif",
+          "Content producer dan art director",
+        ],
+        slides: [
+          "foto konsentrasi/mdc-1.jpg",
+          "foto konsentrasi/mdc-1.jpg",
+          "foto konsentrasi/mdc-1.jpg",
+          "foto konsentrasi/mdc-1.jpg",
+        ],
+      },
+      kab: {
+        label: "Komunikasi Antarbudaya",
+        tabLabel: "Antarbudaya",
+        icon: `<svg class="ktab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+        desc: "Mengeksplorasi dinamika komunikasi lintas budaya untuk membangun pemahaman global dan dialog yang inklusif.",
+        benefits: [
+          "Sensitif terhadap keberagaman budaya dan komunikasi inklusif",
+          "Siap bekerja di lingkungan multikultural dan internasional",
+          "Terampil riset etnografi dan analisis komunikasi budaya",
+          "Mampu menjadi mediator dalam konflik berbasis perbedaan budaya",
+        ],
+        careers: [
+          "Diplomat dan staf kedutaan besar",
+          "Konsultan komunikasi budaya internasional",
+          "Peneliti sosial dan budaya",
+          "Koordinator program NGO dan LSM internasional",
+          "Akademisi dan pengajar komunikasi",
+        ],
+        slides: [
+          "foto konsentrasi/komunikasi antarbudaya-1.jpg",
+          "foto konsentrasi/komunikasi antarbudaya-1.jpg",
+          "foto konsentrasi/komunikasi antarbudaya-1.jpg",
+          "foto konsentrasi/komunikasi antarbudaya-1.jpg",
+        ],
+      },
+    };
+
+    const konsenKeys = ["jurnalistik", "pr", "mdc", "kab"];
+    let currentKey = "jurnalistik";
+    let currentSlide = 0;
+
+    // ── TABS ───────────────────────────────────────────────────────────────────
+    function buildTabs() {
+      const container = document.getElementById("konsenTabs");
+      container.innerHTML = konsenKeys.map(key => {
+        const d = konsenData[key];
+        const isActive = key === currentKey;
+        const displayLabel = d.tabLabel || d.label;
+        return `<button class="ktab ${isActive ? 'active' : ''}" data-key="${key}">
+          ${d.icon}
+          ${displayLabel}
+        </button>`;
+      }).join("");
+      container.querySelectorAll(".ktab").forEach(btn => {
+        btn.addEventListener("click", () => switchKonsen(btn.dataset.key));
+      });
+    }
+
+    // ── SLIDER ────────────────────────────────────────────────────────────────
+    function buildSlider(key) {
+      const track = document.getElementById("sliderTrack");
+      const dots = document.getElementById("sliderDots");
+      const slides = konsenData[key].slides;
+      currentSlide = 0;
+
+      track.innerHTML = slides.map(src => `
+        <div class="slide">
+          <img src="${src}" alt="${konsenData[key].label}" style="width:100%;height:100%;object-fit:cover;" />
+        </div>`).join("");
+
+      dots.innerHTML = slides.map((_, i) =>
+        `<button class="dot ${i === 0 ? 'active' : ''}" data-i="${i}"></button>`
+      ).join("");
+
+      dots.querySelectorAll(".dot").forEach(d =>
+        d.addEventListener("click", () => goTo(parseInt(d.dataset.i)))
+      );
+      track.style.transform = "translateX(0)";
+    }
+
+    function goTo(i) {
+      const total = konsenData[currentKey].slides.length;
+      currentSlide = (i + total) % total;
+      document.getElementById("sliderTrack").style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll(".dot").forEach((d, idx) =>
+        d.classList.toggle("active", idx === currentSlide)
+      );
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => goTo(currentSlide - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => goTo(currentSlide + 1));
+
+    // ── INFO PANEL ────────────────────────────────────────────────────────────
+    function buildInfo(key) {
+      const d = konsenData[key];
+      const benefitsHTML = d.benefits.map(b => `
+        <li style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#fff;border:1px solid #fed7aa;border-radius:10px;font-size:13.5px;color:#374151;line-height:1.5;">
+          <svg style="flex-shrink:0;margin-top:2px;" width="16" height="16" fill="none" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          ${b}
+        </li>`).join("");
+      const careersHTML = d.careers.map(c => `
+        <li style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#fff;border:1px solid #bbf7d0;border-radius:10px;font-size:13.5px;color:#374151;line-height:1.5;">
+          <svg style="flex-shrink:0;margin-top:2px;" width="16" height="16" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          ${c}
+        </li>`).join("");
+
+      document.getElementById("infoPanel").innerHTML = `
+        <div class="fade-in">
+          <!-- Label + deskripsi -->
+          <div class="mb-6 pb-6 border-b border-slate-100">
+            <span class="inline-block text-xs font-bold tracking-widest uppercase text-primary mb-2">${d.label}</span>
+            <p class="text-slate-500 text-sm leading-relaxed">${d.desc}</p>
+          </div>
+
+          <!-- Grid info -->
+          <div class="info-grid">
+            <div>
+              <h3 style="font-size:15px;font-weight:800;color:#ea580c;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Keuntungan Konsentrasi
+              </h3>
+              <ul class="space-y-3">${benefitsHTML}</ul>
+            </div>
+            <div class="mt-6 md:mt-0">
+              <h3 style="font-size:15px;font-weight:800;color:#16a34a;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+                Peluang Karir
+              </h3>
+              <ul class="space-y-3">${careersHTML}</ul>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // ── SWITCH ────────────────────────────────────────────────────────────────
+    function switchKonsen(key) {
+      currentKey = key;
+      buildTabs();
+      buildSlider(key);
+      buildInfo(key);
+      // scroll ke slider (smooth, khusus mobile)
+      if (window.innerWidth < 768) {
+        document.getElementById("sliderWrapper").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────────────
+    buildTabs();
+    buildSlider("jurnalistik");
+    buildInfo("jurnalistik");
+  </script>
+</body>
+
+</html>
