@@ -9,7 +9,7 @@ const daftarKarya = [
     tanggal: "30 juni 2023",
     deskripsi: "itu lah",
     kontenLengkap: `serah<div>lu&nbsp;</div><div>pada</div>`,
-    gambar: "[url=https://ibb.co.com/xKkkc89q][img]https://i.ibb.co.com/xKkkc89q/1f7d56c2840837804f14fdb6f742a1bb.jpg[/img][/url]",
+    gambar: "https://drive.google.com/file/d/1LpHyzEQ0q9_hns_f7GlH0V1E9ABdvD3H/view?usp=sharing",
     link: ""
   },
   {
