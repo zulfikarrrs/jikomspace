@@ -1,18 +1,6 @@
 // DATA KARYA
 const daftarKarya = [
   {
-    id: "k-1781615129752",
-    kategori: ["trending"],
-    tipe: "VIDEO",
-    judul: "apa aja",
-    penulis: "fikar",
-    tanggal: "30 juni 2023",
-    deskripsi: "itu lah",
-    kontenLengkap: `serah<div>lu&nbsp;</div><div>pada</div>`,
-    gambar: "https://drive.google.com/file/d/1LpHyzEQ0q9_hns_f7GlH0V1E9ABdvD3H/view?usp=sharing",
-    link: ""
-  },
-  {
     id: "k-1",
     kategori: ["trending", "angkatan"],
     tipe: "VIDEO",
