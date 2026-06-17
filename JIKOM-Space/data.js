@@ -8,7 +8,7 @@ const daftarKarya = [
     penulis: "Maria Fernanda",
     tanggal: "28 August 2025",
     deskripsi: "Sebuah dokumenter mendalam tentang kehidupan nelayan pesisir Kupang dalam menghadapi perubahan iklim dan tantangan ekonomi modern.",
-    kontenLengkap: `<p>Kupang, 28 Agustus 2025 – <b>Perubahan iklim </b>bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p><p><img src="https://ibb.co.com/xKkkc89q" class="align-full" style="width: 61%;"><img src="https://ibb.co.com/BHZ0sZNR" class="align-full" style="width: 60%;"></p><p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu.</p>`,
+    kontenLengkap: `<p>Kupang, 28 Agustus 2025 – <b>Perubahan iklim </b>bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu.</p>`,
     gambar: "file karya/karya-2.jpg",
     link: "https://link-yang-anda-bagikan-nanti.com"
   },
