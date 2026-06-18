@@ -8,7 +8,7 @@ const daftarKarya = [
     penulis: "fikar",
     tanggal: "30 juni 2023",
     deskripsi: "itu lah",
-    kontenLengkap: `serah<div>lu&nbsp;</div><div>pada</div>`,
+    kontenLengkap: `serah<div>lu&nbsp;</div><div><div class="clearfix"><img src="https://lh3.googleusercontent.com/d/1_2OGPAKLfIee1pHTT6as2i2WU4AukmPc" class="align-left" style="width: 50%;"><img src="https://lh3.googleusercontent.com/d/1_2OGPAKLfIee1pHTT6as2i2WU4AukmPc" class="align-right" style="width: 50%;"><img src="https://lh3.googleusercontent.com/d/1_2OGPAKLfIee1pHTT6as2i2WU4AukmPc" class="align-center" style="width: 50%;"></div></div><div>pada</div>`,
     gambar: "https://lh3.googleusercontent.com/d/1_2OGPAKLfIee1pHTT6as2i2WU4AukmPc",
     link: ""
   },
