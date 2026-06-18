@@ -1,6 +1,18 @@
 // DATA KARYA
 const daftarKarya = [
   {
+    id: "k-1781615129752",
+    kategori: ["trending"],
+    tipe: "VIDEO",
+    judul: "apa aja",
+    penulis: "fikar",
+    tanggal: "30 juni 2023",
+    deskripsi: "itu lah",
+    kontenLengkap: `serah<div>lu&nbsp;</div><div>pada</div>`,
+    gambar: "https://lh3.googleusercontent.com/d/1_2OGPAKLfIee1pHTT6as2i2WU4AukmPc",
+    link: ""
+  },
+  {
     id: "k-1",
     kategori: ["trending", "angkatan"],
     tipe: "VIDEO",
@@ -8,7 +20,7 @@ const daftarKarya = [
     penulis: "Maria Fernanda",
     tanggal: "28 August 2025",
     deskripsi: "Sebuah dokumenter mendalam tentang kehidupan nelayan pesisir Kupang dalam menghadapi perubahan iklim dan tantangan ekonomi modern.",
-    kontenLengkap: `<p>Kupang, 28 Agustus 2025 – <b>Perubahan iklim </b>bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu.</p>`,
+    kontenLengkap: `<p>Kupang, 28 Agustus 2025 – <b>Perubahan iklim </b>bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p><p><img src="https://ibb.co.com/xKkkc89q" class="align-full" style="width: 61%;"><img src="https://ibb.co.com/BHZ0sZNR" class="align-full" style="width: 60%;"></p><p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu.</p>`,
     gambar: "file karya/karya-2.jpg",
     link: "https://link-yang-anda-bagikan-nanti.com"
   },
