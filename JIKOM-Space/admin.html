@@ -1,0 +1,1867 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — JIKOM Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    :root {
+      --primary: #ff7a00;
+      --primary-dark: #e56a00;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== LOGIN SCREEN ===== */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d1b2f;
+      background-image: radial-gradient(circle at 14% 18%, rgba(255, 122, 0, 0.1) 0 140px, transparent 280px);
+    }
+
+    .login-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 122, 0, 0.1);
+      color: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 22px;
+    }
+
+    .login-box h1 {
+      color: #0f172a;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .login-box p {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+
+    .login-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #0f172a;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .login-input:focus {
+      border-color: var(--primary);
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+
+    .login-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .login-error {
+      color: #f87171;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* ===== MAIN APP ===== */
+    #appScreen {
+      display: none;
+    }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-badge {
+      background: var(--primary);
+      color: #0f172a;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .topbar-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    .sidebar-section:first-child {
+      margin-top: 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-item:hover {
+      background: #f8fafc;
+      color: var(--text);
+    }
+
+    .sidebar-item.active {
+      background: #fff4ea;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .sidebar-item .icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* ===== CONTENT AREA ===== */
+    .content {
+      flex: 1;
+      padding: 28px;
+      overflow-y: auto;
+    }
+
+    /* ===== TAB PANELS ===== */
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .panel-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .panel-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      padding: 10px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-danger {
+      background: none;
+      border: none;
+      color: var(--danger);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .btn-danger:hover {
+      background: #fef2f2;
+    }
+
+    /* ===== CARD LIST ===== */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+
+    .item-card:hover {
+      border-color: #cbd5e1;
+    }
+
+    .item-thumb {
+      width: 72px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #f1f5f9;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .item-thumb-placeholder {
+      width: 72px;
+      height: 52px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 20px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #fff4ea;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-edit {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+
+    .btn-edit:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #fff4ea;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 6px;
+    }
+
+    .modal-close:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ===== FORM ===== */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.6;
+    }
+
+    /* ===== RICH EDITOR ===== */
+    .editor-wrap {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .editor-wrap:focus-within {
+      border-color: var(--primary);
+    }
+
+    .editor-toolbar {
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .toolbar-btn {
+      border: none;
+      background: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .toolbar-btn:hover {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .toolbar-btn.active {
+      background: var(--primary);
+      color: #0f172a;
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      margin: 5px 2px;
+    }
+
+    .toolbar-img-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 10px;
+      height: 30px;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .toolbar-img-btn:hover {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    #richEditor {
+      min-height: 260px;
+      padding: 16px;
+      outline: none;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    #richEditor p {
+      margin-bottom: 12px;
+    }
+
+    #richEditor h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    #richEditor h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    #richEditor img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    #richEditor img.align-left {
+      float: left;
+      margin-right: 16px;
+      max-width: 45%;
+    }
+
+    #richEditor img.align-right {
+      float: right;
+      margin-left: 16px;
+      max-width: 45%;
+    }
+
+    #richEditor img.align-center {
+      display: block;
+      margin: 10px auto;
+      max-width: 80%;
+      float: none;
+    }
+
+    #richEditor img.align-full {
+      width: 100%;
+      max-width: 100%;
+      float: none;
+    }
+
+    #richEditor blockquote {
+      border-left: 3px solid var(--primary);
+      padding-left: 14px;
+      color: var(--muted);
+      margin: 14px 0;
+      font-style: italic;
+    }
+
+    #richEditor strong {
+      font-weight: 700;
+    }
+
+    #richEditor em {
+      font-style: italic;
+    }
+
+    #richEditor .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* ===== IMAGE PICKER MODAL ===== */
+    .img-picker-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .img-tab-btn {
+      padding: 10px 18px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+
+    .img-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 600;
+    }
+
+    .img-tab-panel {
+      display: none;
+    }
+
+    .img-tab-panel.active {
+      display: block;
+    }
+
+    .img-align-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .align-opt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+
+    .align-opt:hover,
+    .align-opt.selected {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #fff4ea;
+    }
+
+    .align-opt .align-icon {
+      font-size: 18px;
+    }
+
+    /* ===== IMAGE SIZE SLIDER ===== */
+    .size-row {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .size-row label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .size-slider {
+      flex: 1;
+      accent-color: var(--primary);
+    }
+
+    .size-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 35px;
+    }
+
+    /* ===== GENERATE DATA ===== */
+    .generate-box {
+      background: #0d1b2f;
+      background-image: radial-gradient(circle at 14% 18%, rgba(255, 122, 0, 0.1) 0 140px, transparent 280px);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .generate-box pre {
+      color: #e2e8f0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--primary);
+      color: #0f172a;
+      border: none;
+      border-radius: 7px;
+      padding: 7px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ===== TOAST ===== */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #1e293b;
+      color: #0f172a;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s;
+      pointer-events: none;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== PREVIEW ===== */
+    .preview-wrap {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 8px;
+    }
+
+    .preview-img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .thumb-preview-wrap {
+      margin-top: 8px;
+    }
+
+    /* ===== KATEGORI CHECKBOXES ===== */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .checkbox-label:has(input:checked) {
+      background: #fff4ea;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .checkbox-label input {
+      display: none;
+    }
+
+    /* ===== HELP SECTION ===== */
+    .help-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    .help-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .help-card ol,
+    .help-card ul {
+      padding-left: 18px;
+    }
+
+    .help-card li {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+
+    .help-card a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .help-card a:hover {
+      text-decoration: underline;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--primary);
+      color: #0f172a;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .modal {
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <div class="login-logo"><i data-lucide="lock" class="w-6 h-6"></i></div>
+      <h1>JIKOM Admin</h1>
+      <p>Halaman ini hanya untuk pengelola konten.</p>
+      <input class="login-input" type="text" id="loginUser" placeholder="Username" autocomplete="off" />
+      <input class="login-input" type="password" id="loginPass" placeholder="Password" />
+      <button class="login-btn" onclick="doLogin()">Masuk</button>
+      <div class="login-error" id="loginError">Username atau password salah.</div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN APP ===== -->
+  <div id="appScreen">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-badge">ADMIN</span>
+        <span class="topbar-title">JIKOM Space</span>
+      </div>
+      <div class="topbar-right">
+        <span style="font-size:12px;color:var(--muted)">Halo, <strong id="welcomeName"></strong></span>
+        <button class="btn-logout" onclick="doLogout()">Keluar</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-section">Konten</div>
+        <button class="sidebar-item active" onclick="switchTab('karya', this)">
+          <i data-lucide="palette" class="w-5 h-5 mr-2" style="display:inline-block"></i> JIKOM Karya
+        </button>
+        <button class="sidebar-item" onclick="switchTab('publish', this)">
+          <i data-lucide="newspaper" class="w-5 h-5 mr-2" style="display:inline-block"></i> JIKOM Publish
+        </button>
+        <div class="sidebar-section">Export</div>
+        <button class="sidebar-item" onclick="switchTab('generate', this)">
+          <i data-lucide="settings" class="w-5 h-5 mr-2" style="display:inline-block"></i> Generate data.js
+        </button>
+        <div class="sidebar-section">Panduan</div>
+        <button class="sidebar-item" onclick="switchTab('help', this)">
+          <i data-lucide="book-open" class="w-5 h-5 mr-2" style="display:inline-block"></i> Cara Pakai
+        </button>
+        <div class="sidebar-section">Tools</div>
+        <button class="sidebar-item" onclick="switchTab('gdrive', this)">
+          <i data-lucide="link" class="w-5 h-5 mr-2" style="display:inline-block"></i> Link GDrive
+        </button>
+      </nav>
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <!-- TAB: KARYA -->
+        <div class="tab-panel active" id="tab-karya">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">JIKOM Karya</div>
+              <div class="panel-subtitle">Kelola portofolio karya mahasiswa</div>
+            </div>
+            <button class="btn-primary" onclick="openModal('karya')"><i data-lucide="plus"
+                style="width:16px;height:16px;margin-right:4px;display:inline-block"></i> Tambah Karya</button>
+          </div>
+          <div class="card-list" id="karyaList"></div>
+        </div>
+
+        <!-- TAB: PUBLISH -->
+        <div class="tab-panel" id="tab-publish">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">JIKOM Publish</div>
+              <div class="panel-subtitle">Kelola berita dan artikel mahasiswa</div>
+            </div>
+            <button class="btn-primary" onclick="openModal('publish')"><i data-lucide="plus"
+                style="width:16px;height:16px;margin-right:4px;display:inline-block"></i> Tambah Artikel</button>
+          </div>
+          <div class="card-list" id="publishList"></div>
+        </div>
+
+        <!-- TAB: GENERATE -->
+        <div class="tab-panel" id="tab-generate">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Generate data.js</div>
+              <div class="panel-subtitle">Salin kode ini, ganti isi file data.js di GitHub</div>
+            </div>
+            <button class="btn-primary" onclick="generateCode()"><i data-lucide="refresh-cw"
+                style="width:16px;height:16px;margin-right:4px;display:inline-block"></i> Refresh Kode</button>
+          </div>
+          <div class="generate-box">
+            <button class="copy-btn" onclick="copyCode()">Salin Semua</button>
+            <pre id="generatedCode">Klik "Refresh Kode" untuk generate...</pre>
+          </div>
+          <div
+            style="margin-top:16px; padding:14px 16px; background:#fff4ea; border-radius:10px; border:1px solid #fed7aa;">
+            <p style="font-size:13px; color:#9a3412; font-weight:500;">
+              <i data-lucide="lightbulb"
+                style="width:20px;height:20px;display:inline-block;color:#f97316;margin-right:4px"></i> <strong>Setelah
+                salin:</strong> Buka GitHub → repo jikomspace → buka file <code>data.js</code> → klik ikon pensil →
+              hapus semua isi → paste kode baru → klik <em>Commit changes</em>. Vercel otomatis deploy dalam ~30 detik.
+            </p>
+          </div>
+        </div>
+
+        <!-- TAB: GDRIVE -->
+        <div class="tab-panel" id="tab-gdrive">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Generate Link GDrive</div>
+              <div class="panel-subtitle">Ubah link Google Drive biasa menjadi link gambar langsung</div>
+            </div>
+          </div>
+          
+          <div class="help-card" style="margin-bottom: 24px;">
+            <div class="form-group full" style="margin-bottom: 16px;">
+              <label class="form-label">Link Google Drive</label>
+              <input class="form-input" type="text" id="gdriveInput" placeholder="Contoh: https://drive.google.com/file/d/1_2OGPAKLfIee1pHTT.../view" />
+            </div>
+            <button class="btn-primary" onclick="generateGdriveLink()"><i data-lucide="zap" style="width:16px;height:16px;margin-right:4px;display:inline-block"></i> Generate Link</button>
+            
+            <div style="margin-top: 24px; display: none;" id="gdriveResultWrap">
+              <label class="form-label">Link Gambar Langsung (Copy untuk digunakan)</label>
+              <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 16px; margin-top: 6px;">
+                <input class="form-input" type="text" id="gdriveOutput" readonly />
+                <button class="btn-secondary" onclick="copyGdriveLink()">Copy</button>
+              </div>
+              <div class="thumb-preview-wrap">
+                <img id="gdrivePreview" src="" alt="preview" style="max-width: 100%; max-height: 250px; border-radius: 8px; border: 1px solid var(--border);" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: HELP -->
+        <div class="tab-panel" id="tab-help">
+          <div class="panel-header">
+            <div class="panel-title">Cara Pakai Admin Panel</div>
+          </div>
+
+          <div class="help-card">
+            <h3><i data-lucide="image"
+                style="width:20px;height:20px;display:inline-block;color:#334155;margin-right:4px"></i> Cara Upload
+              Gambar</h3>
+            <ol>
+              <li>Buka <a href="https://drive.google.com/drive/folders/1h5NCTCuJG7ofTPPHFxpd4QmnNZ1gG93H?usp=sharing"
+                  target="_blank" style="color:var(--primary)">drive.google.com</a></li>
+              <li>Upload gambar dari perangkatmu</li>
+              <li>Klik kanan gambar → pilih "Bagikan"</li>
+              <li>Ubah akses ke "Siapa saja yang memiliki link" → klik Selesai</li>
+              <li>Salin link dari Google Drive</li>
+              <li>Buka menu <strong>Tools > Link GDrive</strong> di sidebar kiri</li>
+              <li>Paste link Google Drive tadi, lalu klik "Generate Link"</li>
+              <li>Copy "Link Gambar Langsung" yang muncul dan gunakan di aplikasi</li>
+            </ol>
+          </div>
+
+          <div class="help-card">
+            <h3><i data-lucide="pen-tool"
+                style="width:20px;height:20px;display:inline-block;color:#334155;margin-right:4px"></i> Cara Atur Gambar
+              dalam Konten</h3>
+            <ol>
+              <li>Di editor konten, klik tombol <strong>"+ Sisipkan Gambar"</strong> di toolbar</li>
+              <li>Paste URL gambar, lalu pilih posisi: Kiri, Kanan, Tengah, atau Penuh</li>
+              <li>Atur ukuran gambar dengan slider</li>
+              <li>Klik "Sisipkan" maka gambarnya akan langsung muncul di editor</li>
+              <li>Klik gambar di editor untuk mengedit ulang posisi atau ukuran gambar</li>
+            </ol>
+          </div>
+
+          <div class="help-card">
+            <h3><i data-lucide="rocket"
+                style="width:20px;height:20px;display:inline-block;color:#334155;margin-right:4px"></i> Cara Publish ke
+              Website</h3>
+            <ol>
+              <li>Setelah selesai tambah atau edit konten, klik menu <strong>Generate data.js</strong></li>
+              <li>Klik tombol <strong>"Salin Semua"</strong></li>
+              <li>Buka <a href="https://github.com" target="_blank">github.com</a> → masuk ke repo
+                <strong>jikomspace</strong>
+              </li>
+              <li>Buka file <strong>data.js</strong> → klik ikon pensil (Edit)</li>
+              <li>Hapus semua isi → paste kode yang sudah disalin</li>
+              <li>Scroll bawah → klik <strong>"Commit changes"</strong></li>
+              <li>Tunggu ~30 detik → website langsung update otomatis!</li>
+            </ol>
+          </div>
+
+          <div class="help-card">
+            <h3><i data-lucide="alert-triangle"
+                style="width:20px;height:20px;display:inline-block;color:#334155;margin-right:4px"></i> Penting Diingat
+            </h3>
+            <ul>
+              <li>Gambar yang kamu sisipkan harus dari URL publik (Google Drive share link). Jangan pakai file lokal.
+              </li>
+              <li>Format tanggal: <strong>DD Month YYYY</strong> contoh: <em>16 Juni 2026</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: FORM ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Tambah Karya</div>
+        <button class="modal-close" onclick="closeModal()"><i data-lucide="x"
+            style="width:20px;height:20px;display:inline-block"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId" />
+        <input type="hidden" id="editType" />
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label">Judul</label>
+            <input class="form-input" type="text" id="fJudul" placeholder="Judul karya atau artikel..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Penulis / Pembuat</label>
+            <input class="form-input" type="text" id="fPenulis" placeholder="Nama lengkap..." />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tanggal</label>
+            <input class="form-input" type="text" id="fTanggal" placeholder="16 June 2026" />
+          </div>
+
+          <!-- Kategori Karya -->
+          <div class="form-group full" id="kategoriKaryaWrap">
+            <label class="form-label">Kategori Karya (bisa lebih dari satu)</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="kKat" value="trending" /> Trending</label>
+              <label class="checkbox-label"><input type="checkbox" name="kKat" value="pilihan" /> Karya Pilihan</label>
+              <label class="checkbox-label"><input type="checkbox" name="kKat" value="angkatan" /> Lintas
+                Angkatan</label>
+            </div>
+          </div>
+
+
+
+          <!-- Kategori Publish -->
+          <div class="form-group" id="kategoriPublishWrap" style="display:none">
+            <label class="form-label">Kategori Artikel</label>
+            <select class="form-select" id="fKategoriPublish">
+              <option value="berita">Berita</option>
+              <option value="opini">Opini</option>
+              <option value="liputan">Liputan</option>
+            </select>
+          </div>
+
+
+
+          <div class="form-group full">
+            <label class="form-label">URL Gambar Cover</label>
+            <input class="form-input" type="text" id="fGambar" placeholder="https://lh3.googleusercontent.com/d/..."
+              oninput="previewThumb()" />
+            <div class="thumb-preview-wrap">
+              <img class="preview-img" id="thumbPreview" src="" alt="preview" />
+            </div>
+          </div>
+
+
+
+          <div class="form-group full">
+            <label class="form-label">Deskripsi Singkat (muncul di list)</label>
+            <textarea class="form-textarea" id="fDeskripsi" placeholder="Deskripsi singkat 1-2 kalimat..."></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Konten Lengkap</label>
+            <div class="editor-wrap">
+              <div class="editor-toolbar">
+                <button class="toolbar-btn" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+                <button class="toolbar-btn" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+                <button class="toolbar-btn" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+                <div class="toolbar-divider"></div>
+                <button class="toolbar-btn" onclick="fmtBlock('h2')" title="Heading">H2</button>
+                <button class="toolbar-btn" onclick="fmtBlock('h3')" title="Sub-heading">H3</button>
+                <button class="toolbar-btn" onclick="fmtBlock('p')" title="Paragraf">¶</button>
+                <div class="toolbar-divider"></div>
+                <button class="toolbar-btn" onclick="fmtBlock('blockquote')" title="Kutipan">"</button>
+                <div class="toolbar-divider"></div>
+                <button class="toolbar-img-btn" onclick="openImgPicker()" title="Sisipkan Gambar"><i data-lucide="image"
+                    style="width:16px;height:16px;margin-right:4px;display:inline-block"></i> Sisipkan Gambar</button>
+              </div>
+              <div id="richEditor" contenteditable="true" spellcheck="false"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-danger" id="deleteBtn" onclick="deleteItem()" style="display:none">Hapus</button>
+        <div style="display:flex;gap:10px;margin-left:auto">
+          <button class="btn-secondary" onclick="closeModal()">Batal</button>
+          <button class="btn-primary" onclick="saveItem()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: IMAGE PICKER ===== -->
+  <div class="modal-overlay" id="imgPickerOverlay">
+    <div class="modal" style="max-width:500px">
+      <div class="modal-header">
+        <div class="modal-title">Sisipkan Gambar</div>
+        <button class="modal-close" onclick="closeImgPicker()"><i data-lucide="x"
+            style="width:20px;height:20px;display:inline-block"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="img-picker-tabs">
+          <button class="img-tab-btn active" onclick="switchImgTab('url', this)">Via URL</button>
+          <button class="img-tab-btn" onclick="switchImgTab('tips', this)">Tips Upload</button>
+        </div>
+
+        <div class="img-tab-panel active" id="imgTab-url">
+          <div class="form-group">
+            <label class="form-label">URL Gambar</label>
+            <input class="form-input" type="text" id="imgUrl" placeholder="https://lh3.googleusercontent.com/d/..."
+              oninput="previewInsertImg()" />
+          </div>
+          <img id="insertImgPreview" src=""
+            style="display:none; max-width:100%; max-height:160px; border-radius:8px; margin-top:10px; object-fit:cover;" />
+
+          <div class="form-group" style="margin-top:14px">
+            <label class="form-label">Posisi Gambar</label>
+            <div class="img-align-row">
+              <div class="align-opt selected" data-align="align-left" onclick="selectAlign(this)">
+                <i data-lucide="align-left" style="width:20px;height:20px;margin-bottom:4px;display:inline-block"></i>
+                Kiri
+              </div>
+              <div class="align-opt" data-align="align-right" onclick="selectAlign(this)">
+                <i data-lucide="align-right" style="width:20px;height:20px;margin-bottom:4px;display:inline-block"></i>
+                Kanan
+              </div>
+              <div class="align-opt" data-align="align-center" onclick="selectAlign(this)">
+                <i data-lucide="align-center" style="width:20px;height:20px;margin-bottom:4px;display:inline-block"></i>
+                Tengah
+              </div>
+              <div class="align-opt" data-align="align-full" onclick="selectAlign(this)">
+                <i data-lucide="maximize" style="width:20px;height:20px;margin-bottom:4px;display:inline-block"></i>
+                Penuh
+              </div>
+            </div>
+          </div>
+
+          <div class="size-row">
+            <label>Ukuran</label>
+            <input type="range" class="size-slider" id="imgSizeSlider" min="20" max="100" value="50"
+              oninput="document.getElementById('imgSizeVal').textContent=this.value+'%'" />
+            <span class="size-value" id="imgSizeVal">50%</span>
+          </div>
+        </div>
+
+        <div class="img-tab-panel" id="imgTab-tips">
+          <div style="font-size:13px; color:var(--muted); line-height:1.8;">
+            <p style="margin-bottom:10px"><strong style="color:var(--text)">Upload gambar gratis via Google
+                Drive:</strong></p>
+            <ol style="padding-left:18px; margin-bottom:14px">
+              <li>Buka <a href="https://drive.google.com/drive/folders/1h5NCTCuJG7ofTPPHFxpd4QmnNZ1gG93H?usp=sharing"
+                  target="_blank" style="color:var(--primary)">drive.google.com</a></li>
+              <li>Upload gambar dari perangkatmu</li>
+              <li>Klik kanan gambar → pilih "Bagikan"</li>
+              <li>Ubah akses ke "Siapa saja yang memiliki link" → klik Selesai</li>
+              <li>Salin link gambar tersebut dari Google Drive</li>
+              <li>Gunakan menu <strong>Tools > Link GDrive</strong> di sidebar kiri</li>
+              <li>Generate link-nya lalu paste hasilnya ke kolom URL di tab "Via URL"</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:flex-end">
+        <button class="btn-secondary" onclick="closeImgPicker()">Batal</button>
+        <button class="btn-primary" onclick="insertImage()">Sisipkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <script>
+    // ===== AUTH =====
+    const USERS = { "admin": "jikom2026", "fikar": "jikomspace" };
+
+    function doLogin() {
+      const u = document.getElementById('loginUser').value.trim();
+      const p = document.getElementById('loginPass').value;
+      if (USERS[u] && USERS[u] === p) {
+        localStorage.setItem('jikom_auth', u);
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+        document.getElementById('welcomeName').textContent = u;
+        loadAll();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    function doLogout() {
+      localStorage.removeItem('jikom_auth');
+      location.reload();
+    }
+
+    document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+    // Check session on load
+    window.addEventListener('load', () => {
+      const u = localStorage.getItem('jikom_auth');
+      if (u && USERS[u]) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+        document.getElementById('welcomeName').textContent = u;
+        loadAll();
+      }
+    });
+
+    // ===== DATA STORAGE =====
+    let karyaData = [];
+    let publishData = [];
+
+    const DEFAULT_KARYA = [
+      { id: "k-1", kategori: ["trending", "angkatan"], judul: "Dokumenter: Kehidupan Nelayan Kupang", penulis: "Maria Fernanda", tanggal: "28 August 2025", deskripsi: "Sebuah dokumenter mendalam tentang kehidupan nelayan pesisir Kupang dalam menghadapi perubahan iklim dan tantangan ekonomi modern.", kontenLengkap: "<p>Kupang, 28 Agustus 2025 – Perubahan iklim bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p><p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu.</p>", gambar: "file karya/karya-1.jpg" },
+      { id: "k-2", kategori: ["trending"], judul: "Poster Kampanye Literasi Digital", penulis: "Christina Lopo", tanggal: "15 August 2025", deskripsi: "Karya desain poster pemenang lomba kampanye literasi digital tingkat mahasiswa se-Provinsi NTT.", kontenLengkap: "<p>Desain poster kampanye literasi digital ini dibuat untuk mengikuti ajang kompetisi desain se-Nusa Tenggara Timur.</p>", gambar: "file karya/karya-3.jpg" },
+      { id: "k-3", kategori: ["trending"], judul: "Infografis: Statistik Medsos Gen-Z NTT", penulis: "Agustina Kale", tanggal: "10 July 2025", deskripsi: "Visualisasi data komprehensif mengenai pola konsumsi media sosial di kalangan mahasiswa dan remaja Nusa Tenggara Timur.", kontenLengkap: "<p>Menganalisis dan memahami pola konsumsi konten sangatlah penting bagi pemasar digital dan edukator.</p>", gambar: "file karya/karya-5.jpg" },
+      { id: "k-4", kategori: ["pilihan", "angkatan"], judul: "Opini: Transformasi Digital di NTT", penulis: "Yohanes Bere", tanggal: "02 June 2025", deskripsi: "Artikel opini yang mengkritisi sekaligus memberi solusi atas lambatnya pemerataan akses internet di daerah pelosok.", kontenLengkap: "<p>Kesenjangan digital masih menjadi PR besar di wilayah Indonesia Timur.</p>", gambar: "file karya/karya-2.jpg" },
+      { id: "k-5", kategori: ["pilihan"], judul: "Suara Mahasiswa JIKOM Episode 5", penulis: "Rafael Taneo", tanggal: "18 May 2025", deskripsi: "Bincang santai bersama dosen tamu mengenai peluang karir mahasiswa Ilmu Komunikasi di era AI dan otomasi.", kontenLengkap: "<p>Episode ke-5 dari podcast Suara Mahasiswa JIKOM mengangkat fenomena AI yang mendisrupsi dunia kerja.</p>", gambar: "file karya/karya-4.jpg" },
+      { id: "k-6", kategori: ["pilihan", "angkatan"], judul: "Video Essay: Budaya Ikat Timor", penulis: "Dominikus Luan", tanggal: "21 April 2025", deskripsi: "Esai visual yang menceritakan makna filosofis di balik setiap motif tenun ikat dari berbagai daerah di pulau Timor.", kontenLengkap: "<p>Tenun ikat lebih dari sekadar helaian kain; ini adalah identitas dan buku harian dari sebuah peradaban kuno.</p>", gambar: "file karya/karya-6.jpg" }
+    ];
+
+    const DEFAULT_PUBLISH = [
+      { id: "p-1", kategori: "berita", tanggal: "28 November 2025", penulis: "Mey Oktaviany & Titin Mastri", judul: "Praktik Jurnalisme Online di KupangNews", deskripsi: "Mahasiswa JIKOM Undana belajar produksi berita online, penulisan cepat, dan etika jurnalistik langsung di redaksi.", kontenLengkap: "<p>Kupang – Pada pertengahan November lalu, sekelompok mahasiswa JIKOM Undana berkesempatan melakukan praktik kerja lapangan langsung di ruang redaksi KupangNews.</p>", gambar: "foto publish/publish-1.jpg" },
+      { id: "p-2", kategori: "opini", tanggal: "12 April 2026", penulis: "Yohanes Bere", judul: "Mengapa Literasi Media Penting untuk Gen-Z?", deskripsi: "Kritik dan pandangan mahasiswa tentang pentingnya membaca berita dengan cermat dan bijak menanggapi disinformasi.", kontenLengkap: "<p>Generasi Z tumbuh di tengah era informasi yang melimpah ruah, sering kali informasi tersebut tidak melalui proses penyaringan jurnalistik yang ketat.</p>", gambar: "foto publish/publish-2.jpg" },
+      { id: "p-3", kategori: "liputan", tanggal: "10 April 2026", penulis: "Rafael Taneo", judul: "Potret Aksi Mahasiswa dalam Kampanye Literasi", deskripsi: "Liputan lengkap kegiatan literasi digital yang digelar oleh JIKOM di berbagai titik kumpul komunitas Kupang.", kontenLengkap: "<p>Aksi nyata ditunjukkan oleh komunitas mahasiswa JIKOM Undana pada hari Minggu kemarin di Taman Nostalgia, Kupang.</p>", gambar: "foto publish/publish-3.jpg" },
+      { id: "p-4", kategori: "berita", tanggal: "5 April 2026", penulis: "Agustina Kale", judul: "Mahasiswa JIKOM Raih Penghargaan Jurnalistik", deskripsi: "Cerita prestasi mahasiswa dalam lomba jurnalistik tingkat provinsi, mengangkat isu lingkungan pesisir.", kontenLengkap: "<p>Kabar gembira datang dari delegasi JIKOM Undana yang baru saja menjuarai kompetisi penulisan artikel jurnalistik tingkat provinsi.</p>", gambar: "foto publish/publish-4.jpg" },
+      { id: "p-5", kategori: "opini", tanggal: "1 April 2026", penulis: "Dominikus Luan", judul: "AI dalam Jurnalistik: Ancaman atau Peluang?", deskripsi: "Refleksi mendalam mahasiswa mengenai peran kecerdasan buatan di meja redaksi media masa kini.", kontenLengkap: "<p>Sejak kemunculan model kecerdasan buatan generatif, industri media mulai bereksperimen dengan penulisan artikel otomatis.</p>", gambar: "foto publish/publish-5.jpg" }
+    ];
+
+    function loadAll() {
+      const sk = localStorage.getItem('jikom_karya');
+      const sp = localStorage.getItem('jikom_publish');
+      karyaData = sk ? JSON.parse(sk) : JSON.parse(JSON.stringify(DEFAULT_KARYA));
+      publishData = sp ? JSON.parse(sp) : JSON.parse(JSON.stringify(DEFAULT_PUBLISH));
+      renderKaryaList();
+      renderPublishList();
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function save() {
+      localStorage.setItem('jikom_karya', JSON.stringify(karyaData));
+      localStorage.setItem('jikom_publish', JSON.stringify(publishData));
+    }
+
+    // ===== TAB SWITCHING =====
+    function switchTab(name, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      el.classList.add('active');
+    }
+
+    // ===== RENDER LISTS =====
+    function renderKaryaList() {
+      const el = document.getElementById('karyaList');
+      if (!karyaData.length) { el.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:16px 0">Belum ada karya. Klik "+ Tambah Karya".</p>'; return; }
+      el.innerHTML = karyaData.map(k => `
+    <div class="item-card">
+      ${k.gambar && k.gambar.startsWith('http')
+          ? `<img class="item-thumb" src="${k.gambar}" onerror="this.style.display='none'" />`
+          : `<div class="item-thumb-placeholder"><i data-lucide="palette"></i></div>`}
+      <div class="item-info">
+        <div class="item-title">${k.judul}</div>
+        <div class="item-meta">
+          
+          <span>${k.penulis}</span>
+          <span>${k.tanggal}</span>
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-edit" onclick="openModal('karya','${k.id}')">Edit</button>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function renderPublishList() {
+      const el = document.getElementById('publishList');
+      if (!publishData.length) { el.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:16px 0">Belum ada artikel. Klik "+ Tambah Artikel".</p>'; return; }
+      el.innerHTML = publishData.map(p => `
+    <div class="item-card">
+      ${p.gambar && p.gambar.startsWith('http')
+          ? `<img class="item-thumb" src="${p.gambar}" onerror="this.style.display='none'" />`
+          : `<div class="item-thumb-placeholder"><i data-lucide="newspaper"></i></div>`}
+      <div class="item-info">
+        <div class="item-title">${p.judul}</div>
+        <div class="item-meta">
+          
+          <span>${p.penulis}</span>
+          <span>${p.tanggal}</span>
+        </div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-edit" onclick="openModal('publish','${p.id}')">Edit</button>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    // ===== MODAL =====
+    let currentType = 'karya';
+    let savedRange = null;
+
+    function openModal(type, id = null) {
+      currentType = type;
+      document.getElementById('editType').value = type;
+      document.getElementById('editId').value = id || '';
+      document.getElementById('modalTitle').textContent = id ? 'Edit ' + (type === 'karya' ? 'Karya' : 'Artikel') : 'Tambah ' + (type === 'karya' ? 'Karya' : 'Artikel');
+      document.getElementById('deleteBtn').style.display = id ? 'block' : 'none';
+
+      // Show/hide fields
+      document.getElementById('kategoriKaryaWrap').style.display = type === 'karya' ? 'block' : 'none';
+
+      document.getElementById('kategoriPublishWrap').style.display = type === 'publish' ? 'block' : 'none';
+
+
+      // Reset
+      document.getElementById('fJudul').value = '';
+      document.getElementById('fPenulis').value = '';
+      document.getElementById('fTanggal').value = '';
+      document.getElementById('fGambar').value = '';
+
+      document.getElementById('fDeskripsi').value = '';
+      document.getElementById('richEditor').innerHTML = '';
+      document.getElementById('thumbPreview').style.display = 'none';
+      document.querySelectorAll('[name="kKat"]').forEach(cb => cb.checked = false);
+
+      // Fill if editing
+      if (id) {
+        const item = type === 'karya' ? karyaData.find(k => k.id === id) : publishData.find(p => p.id === id);
+        if (item) {
+          document.getElementById('fJudul').value = item.judul || '';
+          document.getElementById('fPenulis').value = item.penulis || '';
+          document.getElementById('fTanggal').value = item.tanggal || '';
+          document.getElementById('fGambar').value = item.gambar || '';
+
+          document.getElementById('fDeskripsi').value = item.deskripsi || '';
+          document.getElementById('richEditor').innerHTML = item.kontenLengkap || '';
+          if (item.gambar && item.gambar.startsWith('http')) {
+            const prev = document.getElementById('thumbPreview');
+            prev.src = item.gambar;
+            prev.style.display = 'block';
+          }
+          if (type === 'karya') {
+            (item.kategori || []).forEach(k => {
+              const cb = document.querySelector(`[name="kKat"][value="${k}"]`);
+              if (cb) cb.checked = true;
+            });
+
+          } else {
+            document.getElementById('fKategoriPublish').value = item.kategori || 'berita';
+
+          }
+        }
+      }
+
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    function saveItem() {
+      const type = document.getElementById('editType').value;
+      const id = document.getElementById('editId').value;
+      const judul = document.getElementById('fJudul').value.trim();
+      const penulis = document.getElementById('fPenulis').value.trim();
+      const tanggal = document.getElementById('fTanggal').value.trim();
+      const gambar = document.getElementById('fGambar').value.trim();
+
+      const deskripsi = document.getElementById('fDeskripsi').value.trim();
+      const kontenLengkap = document.getElementById('richEditor').innerHTML;
+
+      if (!judul || !penulis || !tanggal) { toast('Judul, penulis, dan tanggal wajib diisi.'); return; }
+
+      if (type === 'karya') {
+        const kategori = Array.from(document.querySelectorAll('[name="kKat"]:checked')).map(cb => cb.value);
+
+        const newItem = { id: id || 'k-' + Date.now(), kategori, judul, penulis, tanggal, deskripsi, kontenLengkap, gambar };
+        if (id) { const i = karyaData.findIndex(k => k.id === id); if (i > -1) karyaData[i] = newItem; }
+        else karyaData.unshift(newItem);
+        save(); renderKaryaList();
+      } else {
+        const kategori = document.getElementById('fKategoriPublish').value;
+
+        const newItem = { id: id || 'p-' + Date.now(), kategori, judul, penulis, tanggal, deskripsi, kontenLengkap, gambar };
+        if (id) { const i = publishData.findIndex(p => p.id === id); if (i > -1) publishData[i] = newItem; }
+        else publishData.unshift(newItem);
+        save(); renderPublishList();
+      }
+
+      closeModal();
+      toast('Tersimpan! Jangan lupa Generate data.js.');
+    }
+
+    function deleteItem() {
+      const type = document.getElementById('editType').value;
+      const id = document.getElementById('editId').value;
+      if (!id) return;
+      if (!confirm('Hapus item ini? Tidak bisa dibatalkan.')) return;
+      if (type === 'karya') karyaData = karyaData.filter(k => k.id !== id);
+      else publishData = publishData.filter(p => p.id !== id);
+      save();
+      if (type === 'karya') renderKaryaList(); else renderPublishList();
+      closeModal();
+      toast('Item dihapus.');
+    }
+
+    // ===== THUMBNAIL PREVIEW =====
+    function previewThumb() {
+      const url = document.getElementById('fGambar').value.trim();
+      const prev = document.getElementById('thumbPreview');
+      if (url.startsWith('http')) { prev.src = url; prev.style.display = 'block'; }
+      else { prev.style.display = 'none'; }
+    }
+
+    // ===== RICH EDITOR =====
+    function fmt(cmd) { document.execCommand(cmd, false, null); document.getElementById('richEditor').focus(); }
+
+    function fmtBlock(tag) {
+      document.getElementById('richEditor').focus();
+      document.execCommand('formatBlock', false, tag);
+    }
+
+    // ===== IMAGE PICKER =====
+    let selectedAlign = 'align-left';
+
+    function openImgPicker() {
+      savedRange = saveSelection();
+      document.getElementById('imgUrl').value = '';
+      document.getElementById('insertImgPreview').style.display = 'none';
+      document.getElementById('imgSizeSlider').value = 50;
+      document.getElementById('imgSizeVal').textContent = '50%';
+      selectedAlign = 'align-left';
+      document.querySelectorAll('.align-opt').forEach(o => o.classList.remove('selected'));
+      document.querySelector('[data-align="align-left"]').classList.add('selected');
+      document.getElementById('imgPickerOverlay').classList.add('open');
+    }
+
+    function closeImgPicker() {
+      document.getElementById('imgPickerOverlay').classList.remove('open');
+    }
+
+    function switchImgTab(name, el) {
+      document.querySelectorAll('.img-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.img-tab-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('imgTab-' + name).classList.add('active');
+    }
+
+    function selectAlign(el) {
+      document.querySelectorAll('.align-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAlign = el.dataset.align;
+    }
+
+    function previewInsertImg() {
+      const url = document.getElementById('imgUrl').value.trim();
+      const prev = document.getElementById('insertImgPreview');
+      if (url.startsWith('http')) { prev.src = url; prev.style.display = 'block'; }
+      else { prev.style.display = 'none'; }
+    }
+
+    function saveSelection() {
+      const sel = window.getSelection();
+      if (sel.rangeCount > 0) return sel.getRangeAt(0).cloneRange();
+      return null;
+    }
+
+    function restoreSelection(range) {
+      if (!range) return;
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    function insertImage() {
+      const url = document.getElementById('imgUrl').value.trim();
+      if (!url) { toast('Masukkan URL gambar dulu.'); return; }
+      const size = document.getElementById('imgSizeSlider').value;
+
+      closeImgPicker();
+
+      const editor = document.getElementById('richEditor');
+      editor.focus();
+      if (savedRange) restoreSelection(savedRange);
+
+      const img = document.createElement('img');
+      img.src = url;
+      img.className = selectedAlign;
+      img.style.width = size + '%';
+      img.onclick = function () { editImg(this); };
+
+      // Wrap in clearfix div if float
+      if (selectedAlign === 'align-left' || selectedAlign === 'align-right') {
+        const wrap = document.createElement('div');
+        wrap.className = 'clearfix';
+        wrap.appendChild(img);
+        document.execCommand('insertHTML', false, wrap.outerHTML);
+      } else {
+        document.execCommand('insertHTML', false, img.outerHTML);
+      }
+
+      // Re-bind click events on all images
+      setTimeout(() => {
+        editor.querySelectorAll('img').forEach(i => { i.onclick = function () { editImg(this); }; });
+      }, 50);
+    }
+
+    function editImg(imgEl) {
+      // Re-open picker with current values pre-filled
+      savedRange = null;
+      document.getElementById('imgUrl').value = imgEl.src;
+      document.getElementById('insertImgPreview').src = imgEl.src;
+      document.getElementById('insertImgPreview').style.display = 'block';
+
+      const sizeVal = parseInt(imgEl.style.width) || 50;
+      document.getElementById('imgSizeSlider').value = sizeVal;
+      document.getElementById('imgSizeVal').textContent = sizeVal + '%';
+
+      const alignClass = ['align-left', 'align-right', 'align-center', 'align-full'].find(c => imgEl.classList.contains(c)) || 'align-left';
+      selectedAlign = alignClass;
+      document.querySelectorAll('.align-opt').forEach(o => o.classList.remove('selected'));
+      const matchOpt = document.querySelector(`[data-align="${alignClass}"]`);
+      if (matchOpt) matchOpt.classList.add('selected');
+
+      // Override insertImage to edit in-place
+      const originalInsert = window.insertImage;
+      window.insertImage = function () {
+        const newUrl = document.getElementById('imgUrl').value.trim();
+        const newSize = document.getElementById('imgSizeSlider').value;
+        imgEl.src = newUrl;
+        imgEl.style.width = newSize + '%';
+        ['align-left', 'align-right', 'align-center', 'align-full'].forEach(c => imgEl.classList.remove(c));
+        imgEl.className = selectedAlign;
+        closeImgPicker();
+        window.insertImage = originalInsert;
+        toast('Gambar diperbarui.');
+      };
+
+      document.getElementById('imgPickerOverlay').classList.add('open');
+    }
+
+    // ===== GENERATE CODE =====
+    function generateCode() {
+      const escStr = s => (s || '').replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\${/g, '\\${');
+
+      const kStr = karyaData.map(k => `  {
+    id: "${k.id}",
+    kategori: [${(k.kategori || []).map(c => `"${c}"`).join(', ')}],
+    judul: "${escStr(k.judul)}",
+    penulis: "${escStr(k.penulis)}",
+    tanggal: "${escStr(k.tanggal)}",
+    deskripsi: "${escStr(k.deskripsi)}",
+    kontenLengkap: \`${escStr(k.kontenLengkap)}\`,
+    gambar: "${escStr(k.gambar)}"
+  }`).join(',\n');
+
+      const pStr = publishData.map(p => `  {
+    id: "${p.id}",
+    kategori: "${p.kategori}",
+    tanggal: "${escStr(p.tanggal)}",
+    penulis: "${escStr(p.penulis)}",
+    judul: "${escStr(p.judul)}",
+    deskripsi: "${escStr(p.deskripsi)}",
+    kontenLengkap: \`${escStr(p.kontenLengkap)}\`,
+    gambar: "${escStr(p.gambar)}"
+  }`).join(',\n');
+
+      const code = `// DATA KARYA\nconst daftarKarya = [\n${kStr}\n];\n\n// DATA PUBLISH\nconst daftarPublish = [\n${pStr}\n];`;
+      document.getElementById('generatedCode').textContent = code;
+      toast('Kode siap! Salin dan paste ke data.js di GitHub.');
+    }
+
+    function copyCode() {
+      const text = document.getElementById('generatedCode').textContent;
+      navigator.clipboard.writeText(text).then(() => toast('Kode berhasil disalin!'));
+    }
+
+    // ===== GDRIVE LINK GENERATOR =====
+    function generateGdriveLink() {
+      const input = document.getElementById('gdriveInput').value.trim();
+      if (!input) {
+        toast('Masukkan link Google Drive terlebih dahulu!');
+        return;
+      }
+      
+      let fileId = null;
+      
+      // Match /d/FILE_ID/
+      const match1 = input.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      // Match id=FILE_ID
+      const match2 = input.match(/id=([a-zA-Z0-9_-]+)/);
+      
+      if (match1 && match1[1]) {
+        fileId = match1[1];
+      } else if (match2 && match2[1]) {
+        fileId = match2[1];
+      }
+      
+      if (fileId) {
+        const directLink = `https://lh3.googleusercontent.com/d/${fileId}`;
+        document.getElementById('gdriveOutput').value = directLink;
+        document.getElementById('gdrivePreview').src = directLink;
+        document.getElementById('gdriveResultWrap').style.display = 'block';
+        toast('Link berhasil digenerate!');
+      } else {
+        toast('Format link Google Drive tidak valid.');
+        document.getElementById('gdriveResultWrap').style.display = 'none';
+      }
+    }
+
+    function copyGdriveLink() {
+      const output = document.getElementById('gdriveOutput');
+      if (output.value) {
+        output.select();
+        navigator.clipboard.writeText(output.value).then(() => toast('Link gambar disalin!'));
+      }
+    }
+
+    // ===== TOAST =====
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // Close modals on overlay click
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+    document.getElementById('imgPickerOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeImgPicker(); });
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
