@@ -1,0 +1,136 @@
+// Mobile menu toggle
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.style.display = mobileMenu.style.display === "none" ? "block" : "none";
+  });
+}
+
+// DATA KARYA
+const daftarKarya = [
+  {
+    id: "k-1",
+    kategori: ["trending", "angkatan"],
+    judul: "Dokumenter: Kehidupan Nelayan Kupang",
+    penulis: "Maria Fernanda",
+    tanggal: "28 August 2025",
+    deskripsi: "Sebuah dokumenter mendalam tentang kehidupan nelayan pesisir Kupang dalam menghadapi perubahan iklim dan tantangan ekonomi modern.",
+    kontenLengkap: "<p>Kupang, 28 Agustus 2025 – Perubahan iklim bukan lagi sekadar isu global yang dibahas di konferensi tingkat tinggi. Di pesisir Kupang, dampaknya telah menjadi kenyataan sehari-hari bagi komunitas nelayan tradisional.</p><p>Melalui dokumenter ini, kami menelusuri kehidupan keluarga nelayan yang harus beradaptasi dengan cuaca ekstrem dan pola musim tangkapan ikan yang semakin tidak menentu. Dokumenter ini juga menyoroti bagaimana teknologi modern dan kearifan lokal dapat dipadukan untuk menjaga ketahanan ekonomi nelayan kecil di pesisir Nusa Tenggara Timur.</p><p>begitulah kira kira.",
+    gambar: "https://lh3.googleusercontent.com/d/1L2e9ng8nymj3iZXU4QSndR0Y8Q_iabmS",
+  },
+  {
+    id: "k-2",
+    kategori: ["trending"],
+    judul: "Poster Kampanye Literasi Digital",
+    penulis: "Christina Lopo",
+    tanggal: "15 August 2025",
+    deskripsi: "Karya desain poster pemenang lomba kampanye literasi digital tingkat mahasiswa se-Provinsi NTT.",
+    kontenLengkap: "<p>Desain poster kampanye literasi digital ini dibuat untuk mengikuti ajang kompetisi desain se-Nusa Tenggara Timur. Konsep utamanya adalah menekankan pentingnya verifikasi sumber informasi sebelum membagikan ulang di grup perpesanan keluarga.</p><p>Penggunaan warna kontras dan elemen visual lokal NTT memperkuat pesan agar kampanye ini relevan bagi audiens dari semua generasi.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1oyRhkVyQdFE9rdHeBvthA9V62rFY36QT",
+  },
+  {
+    id: "k-3",
+    kategori: ["trending"],
+    judul: "Infografis: Statistik Medsos Gen-Z NTT",
+    penulis: "Agustina Kale",
+    tanggal: "10 July 2025",
+    deskripsi: "Visualisasi data komprehensif mengenai pola konsumsi media sosial di kalangan mahasiswa dan remaja Nusa Tenggara Timur.",
+    kontenLengkap: "<p>Menganalisis dan memahami pola konsumsi konten sangatlah penting bagi pemasar digital dan edukator. Karya infografis ini merangkum data penggunaan media sosial terbesar di kalangan Generasi Z NTT tahun 2025.</p><p>Hasil survei menunjukkan pergeseran minat dari platform teks ke video singkat, yang mana berdampak signifikan pada metode edukasi digital saat ini.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1O9D5zSdEx-j-E2w3rHbucMM1C9vso5Dr",
+  },
+  {
+    id: "k-4",
+    kategori: ["pilihan", "angkatan"],
+    judul: "Opini: Transformasi Digital di NTT",
+    penulis: "Yohanes Bere",
+    tanggal: "02 June 2025",
+    deskripsi: "Artikel opini yang mengkritisi sekaligus memberi solusi atas lambatnya pemerataan akses internet di daerah pelosok.",
+    kontenLengkap: "<p>Kesenjangan digital masih menjadi PR besar di wilayah Indonesia Timur. Dalam artikel ini, dibahas berbagai tantangan infrastruktur teknologi yang ada di NTT.</p><p>Tidak hanya mengkritisi, artikel ini juga mengusulkan pendekatan solutif melalui sinergi antara pemerintah lokal, universitas, dan penyedia layanan swasta agar transformasi digital bisa dirasakan hingga ke desa-desa terpencil.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1d-N_46fjGFRd9SKWcurBGKpV9_srbR4H",
+  },
+  {
+    id: "k-5",
+    kategori: ["pilihan"],
+    judul: "Suara Mahasiswa JIKOM Episode 5",
+    penulis: "Rafael Taneo",
+    tanggal: "18 May 2025",
+    deskripsi: "Bincang santai bersama dosen tamu mengenai peluang karir mahasiswa Ilmu Komunikasi di era AI dan otomasi.",
+    kontenLengkap: "<p>Episode ke-5 dari podcast Suara Mahasiswa JIKOM mengangkat fenomena Kecerdasan Buatan (AI) yang mendisrupsi dunia kerja.</p><p>Bincang santai ini diisi oleh narasumber ahli yang menjelaskan bahwa keterampilan komunikasi, pemikiran kritis, dan empati merupakan aset berharga yang tidak dapat digantikan oleh robot maupun algoritma secanggih apa pun.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1lPfMwfx87phkV1nYL6GhtgothkQG4Dka",
+  },
+  {
+    id: "k-6",
+    kategori: ["pilihan", "angkatan"],
+    judul: "Video Essay: Budaya Ikat Timor",
+    penulis: "Dominikus Luan",
+    tanggal: "21 April 2025",
+    deskripsi: "Esai visual yang menceritakan makna filosofis di balik setiap motif tenun ikat dari berbagai daerah di pulau Timor.",
+    kontenLengkap: "<p>Tenun ikat lebih dari sekadar helaian kain; ini adalah identitas dan buku harian dari sebuah peradaban kuno yang diwariskan dari generasi ke generasi.</p><p>Video essay ini membedah makna di balik pola geometris khas yang ada di berbagai wilayah pulau Timor, sekaligus menampilkan kehidupan para penenun hebat yang tetap menjaga kebudayaan ini di tengah arus modernisasi.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1dNxiza-SN72Tj5QGSxEWvMFrrH9z-OB2",
+  },
+  {
+    id: "k-7",
+    kategori: ["pilihan", "angkatan"],
+    judul: "adalah pokoknya",
+    penulis: "fikar",
+    tanggal: "26 April 2010",
+    deskripsi: "Esai visual yang menceritakan makna filosofis di balik setiap motif tenun ikat dari berbagai daerah di pulau Timor.",
+    kontenLengkap: "<p>Tenun ikat lebih dari sekadar helaian kain; ini adalah identitas dan buku harian dari sebuah peradaban kuno yang diwariskan dari generasi ke generasi.</p><p>Video essay ini membedah makna di balik pola geometris khas yang ada di berbagai wilayah pulau Timor, sekaligus menampilkan kehidupan para penenun hebat yang tetap menjaga kebudayaan ini di tengah arus modernisasi.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1D_SMH9QzLdIyzVuSDzXLejuaNUSNCWhd",
+  }
+];
+
+// DATA PUBLISH
+const daftarPublish = [
+  {
+    id: "p-1",
+    kategori: ["berita"],
+    tanggal: "28 November 2025",
+    penulis: "Mey Oktaviany & Titin Mastri",
+    judul: "Praktik Jurnalisme Online di KupangNews",
+    deskripsi: "Mahasiswa JIKOM Undana belajar produksi berita online, penulisan cepat, dan etika jurnalistik langsung di redaksi.",
+    kontenLengkap: "<p>Kupang – Pada pertengahan November lalu, sekelompok mahasiswa JIKOM Undana berkesempatan melakukan praktik kerja lapangan langsung di ruang redaksi KupangNews.</p><p>Kegiatan ini merupakan bagian dari kurikulum Jurnalisme Online, di mana para peserta belajar melakukan peliputan, memverifikasi fakta di lapangan, dan merangkumnya menjadi berita aktual dalam waktu singkat (deadline ketat).</p><p>Pemimpin redaksi KupangNews menyatakan apresiasinya terhadap dedikasi dan kecepatan kerja mahasiswa JIKOM, serta berharap kolaborasi ini terus berlanjut.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1TbA0H6i0Po6FfLAbsjDVikN9bcN3usZH",
+  },
+  {
+    id: "p-2",
+    kategori: ["opini"],
+    tanggal: "12 April 2026",
+    penulis: "Yohanes Bere",
+    judul: "Mengapa Literasi Media Penting untuk Gen-Z?",
+    deskripsi: "Kritik dan pandangan mahasiswa tentang pentingnya membaca berita dengan cermat dan bijak menanggapi disinformasi.",
+    kontenLengkap: "<p>Generasi Z tumbuh di tengah era informasi yang melimpah ruah, sering kali informasi tersebut tidak melalui proses penyaringan jurnalistik yang ketat.</p><p>Maraknya hoaks, misinformasi, dan clickbait di media sosial memaksa setiap pengguna untuk menjadi kritikus konten mereka sendiri. Artikel ini membedah alasan mengapa pendidikan literasi media harus ditanamkan semenjak bangku sekolah menengah, dan bukan hanya ketika sudah mencapai tingkat universitas.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1Y7FaR9GdttNEFkqyRc1Cp0K_Dg30q7Ez",
+  },
+  {
+    id: "p-3",
+    kategori: ["liputan"],
+    tanggal: "10 April 2026",
+    penulis: "Rafael Taneo",
+    judul: "Potret Aksi Mahasiswa dalam Kampanye Literasi",
+    deskripsi: "Liputan lengkap kegiatan literasi digital yang digelar oleh JIKOM di berbagai titik kumpul komunitas Kupang.",
+    kontenLengkap: "<p>Aksi nyata ditunjukkan oleh komunitas mahasiswa JIKOM Undana pada hari Minggu kemarin di Taman Nostalgia, Kupang.</p><p>Ratusan mahasiswa turun ke lapangan untuk mengkampanyekan pentingnya literasi digital kepada masyarakat umum. Mereka membagikan pamflet, mengadakan permainan edukatif, serta menyediakan pos konsultasi verifikasi hoaks bagi warga sekitar.</p><p>Aksi turun ke jalan ini tidak hanya bertujuan memenuhi tugas akademik, tetapi murni sebagai panggilan sosial untuk mencerdaskan masyarakat di era disrupsi informasi.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1dzzuUsAkhBUty-7IyKwdf1O1dkF8BffN",
+  },
+  {
+    id: "p-4",
+    kategori: ["berita"],
+    tanggal: "5 April 2026",
+    penulis: "Agustina Kale",
+    judul: "Mahasiswa JIKOM Raih Penghargaan Jurnalistik",
+    deskripsi: "Cerita prestasi mahasiswa dalam lomba jurnalistik tingkat provinsi, mengangkat isu lingkungan pesisir.",
+    kontenLengkap: "<p>Kabar gembira datang dari delegasi JIKOM Undana yang baru saja menjuarai kompetisi penulisan artikel jurnalistik tingkat provinsi Nusa Tenggara Timur.</p><p>Karya feature tulisan yang mengangkat nasib terumbu karang di Teluk Kupang ini berhasil memukau dewan juri karena kedalaman riset dan gaya bahasanya yang naratif serta menyentuh hati.</p><p>Penghargaan ini diharapkan bisa memicu semangat mahasiswa lainnya untuk berani mengirimkan karya terbaik mereka ke ajang yang lebih besar berskala nasional.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1-XeYzzgpZSD-AKY1nls7Gc3mqil2JTwm",
+  },
+  {
+    id: "p-5",
+    kategori: ["opini"],
+    tanggal: "1 April 2026",
+    penulis: "Dominikus Luan",
+    judul: "AI dalam Jurnalistik: Ancaman atau Peluang?",
+    deskripsi: "Refleksi mendalam mahasiswa mengenai peran kecerdasan buatan di meja redaksi media masa kini.",
+    kontenLengkap: "<p>Sejak kemunculan model kecerdasan buatan generatif, industri media mulai bereksperimen dengan penulisan artikel otomatis. Apakah peran wartawan kelak akan tergantikan oleh AI?</p><p>Menurut hemat penulis, AI harus diposisikan sebagai alat pendukung produksi, seperti untuk transkripsi dan riset data awal, alih-alih sebagai otak utama dari kerja jurnalistik.</p><p>Faktor <em>human element</em>, reportase lapangan mendalam, empati kepada subjek berita, adalah hal fundamental yang selamanya akan menjadikan peran manusia di ruang redaksi tidak bisa digantikan.</p>",
+    gambar: "https://lh3.googleusercontent.com/d/1psL3jonHtpmOhaneN3vVHxBzgLSMC3rh",
+  }
+];
