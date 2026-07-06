@@ -1,15 +1,3 @@
-<script>
-  // Debug: cek apakah data.js ter-load
-  window.addEventListener('DOMContentLoaded', () => {
-    if (typeof daftarPublish === 'undefined') {
-      console.warn('data.js tidak ter-load. Menghapus localStorage untuk reset.');
-      localStorage.removeItem('jikom_karya');
-      localStorage.removeItem('jikom_publish');
-      location.reload();
-    }
-  });
-</script>
-
 <!doctype html>
 <html lang="id">
 
