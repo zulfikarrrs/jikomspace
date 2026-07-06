@@ -1,0 +1,90 @@
+:root {
+      --primary: #ff7a00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #ff7a00 #f8f8f8;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ff7a00, #ff9a40);
+      border-radius: 10px;
+      border: 1.5px solid #f8f8f8;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #e56a00, #ff7a00);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.2s;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 100%;
+      height: 2px;
+      background: #ff7a00;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.25s;
+    }
+
+    .nav-link:hover {
+      color: #ff7a00;
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .nav-link.active-page {
+      color: #ff7a00;
+    }
+
+    .nav-link.active-page::after {
+      transform: scaleX(1);
+    }
+
+    .sidebar-cat {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .sidebar-cat:hover {
+      color: #ff7a00;
+    }
+
+    .detail-content p {
+      margin-bottom: 1.2em;
+      line-height: 1.8;
+      color: #475569;
+      font-size: 15px;
+    }
+
+    .detail-content em {
+      font-style: italic;
+    }
