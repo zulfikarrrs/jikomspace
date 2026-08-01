@@ -1,16 +1,6 @@
 // DATA KARYA
 const daftarKarya = [
   {
-    id: "k-1785590379290",
-    kategori: ["trending"],
-    judul: "jdvaiv",
-    penulis: "SKBvHBV",
-    tanggal: "90 april 990",
-    deskripsi: "aVv",
-    kontenLengkap: `VSVD`,
-    gambar: "https://lh3.googleusercontent.com/d/1dNxiza-SN72Tj5QGSxEWvMFrrH9z-OB2"
-  },
-  {
     id: "k-1",
     kategori: ["trending", "angkatan"],
     judul: "Dokumenter: Kehidupan Nelayan Kupang",
