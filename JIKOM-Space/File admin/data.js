@@ -1,16 +1,6 @@
 // DATA KARYA
 const daftarKarya = [
   {
-    id: "k-1785591419627",
-    kategori: ["trending"],
-    judul: "khav",
-    penulis: "vSB",
-    tanggal: "67 april 2000",
-    deskripsi: "sBdsb",
-    kontenLengkap: `nngznt`,
-    gambar: "https://lh3.googleusercontent.com/d/1dNxiza-SN72Tj5QGSxEWvMFrrH9z-OB2"
-  },
-  {
     id: "k-1",
     kategori: ["trending", "angkatan"],
     judul: "Dokumenter: Kehidupan Nelayan Kupang",
